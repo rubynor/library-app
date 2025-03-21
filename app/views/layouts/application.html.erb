@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
   <head>
     <title>Library</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,8 +13,13 @@
 
   <body>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if notice %>
+      <p class="notice absolute"><%= notice %></p>
+    <% end %>
+
+    <% if alert %>
+      <p class="alert absolute"><%= alert %></p>
+    <% end %>
 
     <main>
       <%= yield %>
