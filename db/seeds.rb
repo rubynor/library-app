@@ -3,16 +3,19 @@ Review.destroy_all
 Bookmark.destroy_all
 
 users = [
-  { email: "fogado@rubynor.com", password: "Test123" },
-  { email: "bob@example.com", password: "Test123" },
-  { email: "charlie@example.com", password: "Test123" },
-  { email: "alice@example.com", password: "Test123" },
-  { email: "eve@example.com", password: "Test123" }
+  { email: "fogado@rubynor.com", password: "Test123", first_name: "Fogado", last_name: "Semena" },
+  { email: "bob@example.com", password: "Test123", first_name: "Bob", last_name: "Smith" },
+  { email: "charlie@example.com", password: "Test123", first_name: "Charlie", last_name: "Johnson" },
+  { email: "alice@example.com", password: "Test123", first_name: "Alice", last_name: "Williams" },
+  { email: "eve@example.com", password: "Test123", first_name: "Eve", last_name: "Davis" }
 ].map do |user_attrs|
   User.find_or_create_by(email: user_attrs[:email]) do |user|
     user.password = user_attrs[:password]
+    user.first_name = user_attrs[:first_name]
+    user.last_name = user_attrs[:last_name]
   end
 end
+
 
 books = [
   {
