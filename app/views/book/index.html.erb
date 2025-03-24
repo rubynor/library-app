@@ -7,11 +7,23 @@
 
         <div class="space-y-4">
           <h1 class="text-3xl font-bold">Books</h1>
-          <div class="filter">
-            <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
-            <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Education"/>
-            <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Business"/>
-            <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Sci-fi"/>
+          <div class="flex">
+            <div class="filter w-1/2">
+              <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
+              <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Education"/>
+              <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Business"/>
+              <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Sci-fi"/>
+            </div>
+
+            <div class="w-1/2 flex justify-end">
+              <div class="ml-auto">
+                <select class="select" id="sort-dropdown">
+                  <option disabled selected>Sort</option>
+                  <option value="title">Title</option>
+                  <option value="date_added">Date Added</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -105,3 +117,10 @@
     </div>
   </div>
 <% end %>
+<script>
+  document.getElementById("sort-dropdown").addEventListener("change", function () {
+    const sortBy = this.value;
+    window.location.href = `?sort_by=${sortBy}`;
+  });
+
+</script>

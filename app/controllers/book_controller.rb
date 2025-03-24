@@ -3,8 +3,15 @@ class BookController < ApplicationController
 
   def index
     @books = Book.includes(:user, :reviews)
-  end
 
+    if params[:sort_by] == "title"
+      @books = @books.order(:title)
+    elsif params[:sort_by] == "date_added"
+      @books = @books.order(created_at: :desc)
+    else
+      @books = @books.order(created_at: :desc)
+    end
+  end
 
   def details
     book = Book.find_by(id: params[:id])
