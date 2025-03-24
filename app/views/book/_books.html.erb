@@ -32,7 +32,7 @@
             </div>
             <div class="h-1/4 space-x-2 flex items-center">
             <span class="text-xl font-semibold">
-                <%= book.reviews.average(:rating) || 0 %>
+                <%= (book.reviews.average(:rating) || 0).round(0.5) %>
             </span>
             <div class="rating rating-sm">
                 <% 5.times do |i| %>
