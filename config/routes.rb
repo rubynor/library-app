@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   root 'book#index'
 
-  resources :books, only: [] do
+  resources :book, only: [] do
     get 'details', on: :member
   end
   

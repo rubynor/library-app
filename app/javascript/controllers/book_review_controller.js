@@ -6,7 +6,7 @@ export default class extends Controller {
   open(event) {
     const bookId = event.currentTarget.dataset.bookId;
 
-    fetch(`/books/${bookId}/details`, {
+    fetch(`/book/${bookId}/details`, {
       headers: { "Accept": "application/json" }
     })
       .then(response => response.json())
