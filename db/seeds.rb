@@ -16,7 +16,6 @@ users = [
   end
 end
 
-
 books = [
   {
     title: "Animal Farm",
@@ -54,7 +53,7 @@ books = [
     title: "Moby-Dick",
     author: "Herman Melville",
     description: "The epic tale of obsession and revenge on the high seas.",
-    cover_image_url: "https://m.media-amazon.com/images/I/71rNH9XgqML.jpg",
+    cover_image_url: "https://covers.storytel.com/jpg-640/9783736800748.5677c285-990e-4d28-8ad4-edaab19c59a9?optimize=high&quality=70&width=600",
     pages: 635,
     user: users.sample
   }
@@ -64,26 +63,34 @@ books = [
   end
 end
 
-reviews = [
-  { user: users[0], book: books[0], rating: 5, content: "A brilliant satire with deep meaning!" },
-  { user: users[1], book: books[1], rating: 4, content: "Terrifying yet captivating." },
-  { user: users[2], book: books[2], rating: 5, content: "An emotional and thought-provoking read." },
-  { user: users[3], book: books[3], rating: 4, content: "A mesmerizing look at the American dream." },
-  { user: users[4], book: books[4], rating: 5, content: "An intense, gripping, and unforgettable experience." }
+review_texts = [
+  "A masterpiece that everyone should read.",
+  "Very thought-provoking and well-written!",
+  "I couldn't put it down!",
+  "An absolute classic!",
+  "A bit overrated, but still good.",
+  "A unique perspective on human nature.",
+  "Changed my life!",
+  "An interesting read, though slow at times."
 ]
-reviews.each do |review_attrs|
-  Review.find_or_create_by(user: review_attrs[:user], book: review_attrs[:book]) do |review|
-    review.assign_attributes(review_attrs)
+
+books.each do |book|
+  users.sample(3).each do |user|
+    next if Review.exists?(user: user, book: book)
+
+    Review.create!(
+      user: user,
+      book: book,
+      rating: rand(3..5),
+      content: review_texts.sample
+    )
   end
 end
 
-bookmarks = [
-  { user: users[0], book: books[1] },
-  { user: users[1], book: books[2] },
-  { user: users[2], book: books[0] },
-  { user: users[3], book: books[4] },
-  { user: users[4], book: books[3] }
-]
+bookmarks = users.map do |user|
+  { user: user, book: books.sample }
+end
+
 bookmarks.each do |bookmark_attrs|
   Bookmark.find_or_create_by(bookmark_attrs)
 end
