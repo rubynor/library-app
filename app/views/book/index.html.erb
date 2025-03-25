@@ -7,6 +7,7 @@
 
         <div class="space-y-4">
           <h1 class="text-3xl font-bold">Books</h1>
+
           <div class="flex">
             <div class="filter w-1/2">
               <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
@@ -17,10 +18,10 @@
 
             <div class="w-1/2 flex justify-end">
               <div class="ml-auto">
-                <select class="select" id="sort-dropdown">
-                  <option disabled selected>Sort</option>
-                  <option value="title">Title</option>
-                  <option value="date_added">Date Added</option>
+                <select class="select" data-controller="book-review" data-book-review-target="sort" id="sort-dropdown">
+                  <option disabled <%= params[:sort_by].blank? ? 'selected' : '' %>>Sort</option>
+                  <option value="title" <%= params[:sort_by] == 'title' ? 'selected' : '' %>>Title</option>
+                  <option value="date_added" <%= params[:sort_by] == 'date_added' ? 'selected' : '' %>>Date Added</option>
                 </select>
               </div>
             </div>
@@ -29,8 +30,10 @@
 
         <div class="divider"></div>
 
-        <h2 class="text-xl mb-6 font-semibold">Recently added</h2>
-        
+        <h2 class="text-xl mb-6 font-semibold">
+          <%= params[:query].present? ? 'Search Results' : 'Recently added' %>
+        </h2>
+
         <div id="books-container">
           <%= render "books" %>
         </div>

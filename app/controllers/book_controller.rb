@@ -4,6 +4,10 @@ class BookController < ApplicationController
   def index
     @books = Book.includes(:user, :reviews)
 
+    if params[:query].present?
+      @books = @books.where("title LIKE ?", "%#{params[:query]}%")
+    end
+
     if params[:sort_by] == "title"
       @books = @books.order(:title)
     elsif params[:sort_by] == "date_added"
