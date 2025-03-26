@@ -24,10 +24,9 @@ class BookController < ApplicationController
         id: book.id,
         title: book.title,
         cover_image_url: book.cover_image_url,
-        added_by: book.user.email,
-        rating: book.reviews.average(:rating) || 0,
+        added_by: book.user.first_name,
         pages: book.pages,
-        rating_count: book.reviews.count,
+        rating_count: book.reviews.average(:rating) || 0,  # This stays the same
         review_count: book.reviews.count,
         description: book.description
       }

@@ -35,7 +35,7 @@
               </span>
               <div class="rating rating-xs">
                 <% 5.times do |i| %>
-                  <input type="radio" name="rating-<%= book.id %>" class="mask mask-star-2 bg-orange-400" <%= 'checked' if (book.reviews.average(:rating) || 0) > i %> aria-label="<%= i + 1 %> star">
+                  <input disabled type="radio" name="rating-<%= book.id %>" class="mask mask-star-2 bg-orange-400" <%= 'checked' if (book.reviews.average(:rating) || 0) > i %> aria-label="<%= i + 1 %> star">
                 <% end %>
               </div>  
               <span class="hidden md:block">(<%= book.reviews.count %> Reviews)</span>
