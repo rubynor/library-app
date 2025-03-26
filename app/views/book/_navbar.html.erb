@@ -50,12 +50,11 @@
     </label>
 
     <div class="ml-auto">
-      <select class="select" data-controller="book-review" data-book-review-target="sort" id="sort-dropdown">
+      <select class="select" data-book-search-target="sort" id="sort-dropdown">
         <option disabled <%= params[:sort_by].blank? ? 'selected' : '' %>>Sort</option>
         <option value="title" <%= params[:sort_by] == 'title' ? 'selected' : '' %>>Title</option>
         <option value="date_added" <%= params[:sort_by] == 'date_added' ? 'selected' : '' %>>Date Added</option>
       </select>
-
     </div>
   </div>
 </div>
