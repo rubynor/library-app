@@ -1,29 +1,30 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["input", "button", "sort"];
+  static targets = ["input", "button"];
 
   connect() {
-    if (this.hasButtonTarget) {
-      this.buttonTarget.addEventListener("click", this.performSearch.bind(this));
-    }
-
-    if (this.hasInputTarget) {
-      this.inputTarget.addEventListener("keypress", (event) => {
+    this.inputTargets.forEach(input => {
+      input.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
-          this.performSearch();
+          this.performSearch(input);
         }
       });
-    }
+    });
 
-    if (this.hasSortTarget) {
-      this.sortTarget.addEventListener("change", this.updateSort.bind(this));
+    if (this.hasButtonTarget) {
+      this.buttonTargets.forEach(button => {
+        button.addEventListener("click", () => {
+          const associatedInput = button.closest('.input').querySelector('input[type="search"]');
+          this.performSearch(associatedInput);
+        });
+      });
     }
   }
 
-  performSearch() {
-    const query = this.inputTarget.value.trim();
+  performSearch(inputElement) {
+    const query = inputElement.value.trim();
     const urlParams = new URLSearchParams(window.location.search);
     const sortBy = urlParams.get("sort_by") || "";
 
@@ -31,20 +32,6 @@ export default class extends Controller {
 
     if (sortBy) {
       urlParams.set("sort_by", sortBy);
-    }
-
-    window.location.href = `?${urlParams.toString()}`;
-  }
-
-  updateSort() {
-    const sortBy = this.sortTarget.value;
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentQuery = urlParams.get("query");
-
-    urlParams.set("sort_by", sortBy);
-
-    if (currentQuery) {
-      urlParams.set("query", currentQuery);
     }
 
     window.location.href = `?${urlParams.toString()}`;
