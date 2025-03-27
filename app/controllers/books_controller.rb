@@ -34,4 +34,25 @@ class BooksController < ApplicationController
       render json: { error: "Book not found" }, status: :not_found
     end
   end
+
+  def new
+    @book = Book.new
+  end
+
+  def create
+    @book = current_user.books.build(book_params)
+
+    if @book.save
+      redirect_to books_path, notice: "Book was successfully created."
+    else
+      flash.now[:alert] = "There was an error creating the book."
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def book_params
+    params.require(:book).permit(:title, :author, :description, :cover_image_url, :pages)
+  end
 end

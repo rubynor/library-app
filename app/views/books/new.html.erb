@@ -1,0 +1,34 @@
+<div class="bg-[#F2F4F7] h-screen w-screen flex items-center justify-center">
+  <div class="bg-white p-8 py-12 rounded-3xl text-[#757575] w-[30rem]">
+    <div class="text-center mb-12 space-y-3">
+      <h2 class="text-[#212121] text-3xl font-extrabold">Create Book</h2>
+      <p class="text-[#757575]">Fill out the details of the book below.</p>
+    </div>
+
+    <%= form_with(model: @book, local: true) do |form| %>
+      <div class="space-y-6">
+        <div class="field input w-full">
+          <%= form.text_field :title, class: "grow w-full", placeholder: "Book Title" %>
+        </div>
+
+        <div class="field input w-full">
+          <%= form.text_field :author, class: "grow w-full", placeholder: "Author Name" %>
+        </div>
+
+          <%= form.text_area :description, class: "textarea w-full", placeholder: "Description" %>
+
+        <div class="field input w-full">
+          <%= form.text_field :cover_image_url, class: "grow w-full", placeholder: "Cover Image URL" %>
+        </div>
+
+        <div class="field input w-full">
+          <%= form.number_field :pages, class: "grow w-full", placeholder: "Number of Pages" %>
+        </div>
+
+        <div class="w-full actions text-center space-y-5">
+          <%= form.submit "Create Book", class: "btn w-full bg-[#111F4D] text-white rounded-xl" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
