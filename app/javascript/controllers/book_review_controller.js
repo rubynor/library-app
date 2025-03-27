@@ -6,12 +6,11 @@ export default class extends Controller {
   open(event) {
     const bookId = event.currentTarget.dataset.bookId;
 
-    fetch(`/book/${bookId}/details`, {
+    fetch(`/books/${bookId}/details`, {
       headers: { "Accept": "application/json" }
     })
       .then(response => response.json())
       .then(data => {
-        
         this.coverTarget.src = data.cover_image_url;
         this.titleTarget.textContent = data.title;
         this.addedByTarget.textContent = data.added_by;

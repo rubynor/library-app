@@ -7,12 +7,15 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   
   # Root route
-  root 'book#index'
+  root 'books#index'
   
   # Books routes
-  resources :book do
+  resources :books do
     # Nested bookmark routes
     resource :bookmarks, only: [:create, :destroy]
+    
+    # Define the 'details' route
+    get 'details', on: :member
   end
   
   # Reviews routes
