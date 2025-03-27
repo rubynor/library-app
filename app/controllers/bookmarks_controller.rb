@@ -5,21 +5,33 @@ class BookmarksController < ApplicationController
     @book = Book.find(params[:book_id])
     @bookmark = current_user.bookmarks.build(book: @book)
 
-    if @bookmark.save
-      render json: { bookmarked: true, book_id: @book.id }, status: :created
-    else
-      render json: { bookmarked: false, errors: @bookmark.errors.full_messages }, status: :unprocessable_entity
+    respond_to do |format|
+      if @bookmark.save
+        format.turbo_stream
+      else
+        format.turbo_stream { 
+          render turbo_stream: turbo_stream.replace("book_#{@book.id}_bookmark", 
+            partial: 'bookmarks/error', 
+            locals: { book: @book, errors: @bookmark.errors.full_messages }) 
+        }
+      end
     end
   end
 
   def destroy
     @book = Book.find(params[:book_id])
     @bookmark = current_user.bookmarks.find_by(book: @book)
-    
-    if @bookmark&.destroy
-      render json: { bookmarked: false, book_id: @book.id }
-    else
-      render json: { error: 'Bookmark not found' }, status: :not_found
+
+    respond_to do |format|
+      if @bookmark&.destroy
+        format.turbo_stream
+      else
+        format.turbo_stream { 
+          render turbo_stream: turbo_stream.replace("book_#{@book.id}_bookmark", 
+            partial: 'bookmarks/error', 
+            locals: { book: @book, errors: ['Bookmark not found'] }) 
+        }
+      end
     end
   end
 end

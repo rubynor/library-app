@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "book_#{@book.id}_bookmark" do %>
+  <%= render partial: 'bookmarks/bookmark_button', locals: { book: @book, bookmarked: false } %>
+<% end %>
