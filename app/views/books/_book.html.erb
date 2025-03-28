@@ -42,7 +42,15 @@
               >
                 Review
               </label>
-              <button class="btn py-6 rounded-xl bg-[#111F4D] text-white">Read</button>
+              <% if book.pdf_file.attached? %>
+                <%= link_to "Read", download_book_path(book), 
+                    class: "btn py-6 rounded-xl bg-[#111F4D] text-white",
+                    method: :get %>
+              <% else %>
+                <button class="btn py-6 rounded-xl bg-[#111F4D] text-white" disabled>
+                  No PDF Available
+                </button>
+              <% end %>
             </div>
           </div>
         </div>

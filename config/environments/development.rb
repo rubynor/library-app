@@ -43,6 +43,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Add this to both environments
+  config.active_storage.service = :local  # or :amazon, :google, etc. for cloud storage
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

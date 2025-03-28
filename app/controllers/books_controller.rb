@@ -50,9 +50,32 @@ class BooksController < ApplicationController
     end
   end
 
+  def download
+    @book = Book.find(params[:id])
+    
+    if @book.pdf_file.attached?
+      filename = "#{@book.title.parameterize}-#{@book.id}.pdf"
+      
+      send_data @book.pdf_file.download, 
+                filename: filename, 
+                type: 'application/pdf', 
+                disposition: 'attachment'
+    else
+      flash[:alert] = "No PDF file available for this book."
+      redirect_to books_path
+    end
+  end
+
   private
 
   def book_params
-    params.require(:book).permit(:title, :author, :description, :cover_image_url, :pages)
+    params.require(:book).permit(
+      :title,
+      :author,
+      :description,
+      :cover_image_url,
+      :pages,
+      :pdf_file
+    )
   end
 end

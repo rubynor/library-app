@@ -5,26 +5,24 @@
       <p class="text-[#757575]">Fill out the details of the book below.</p>
     </div>
 
-    <%= form_with(model: @book, local: true) do |form| %>
+    <%= form_with(model: @book, local: true, html: { multipart: true }) do |form| %>
       <div class="space-y-6">
         <div class="field input w-full">
           <%= form.text_field :title, class: "grow w-full", placeholder: "Book Title" %>
         </div>
-
         <div class="field input w-full">
           <%= form.text_field :author, class: "grow w-full", placeholder: "Author Name" %>
         </div>
-
-          <%= form.text_area :description, class: "textarea w-full", placeholder: "Description" %>
-
+        <%= form.text_area :description, class: "textarea w-full", placeholder: "Description" %>
         <div class="field input w-full">
           <%= form.text_field :cover_image_url, class: "grow w-full", placeholder: "Cover Image URL" %>
         </div>
-
         <div class="field input w-full">
           <%= form.number_field :pages, class: "grow w-full", placeholder: "Number of Pages" %>
         </div>
-
+        <div class="field input w-full">
+          <%= form.file_field :pdf_file, accept: 'application/pdf', class: "file-input file-input-bordered w-full" %>
+        </div>
         <div class="w-full actions text-center space-y-5">
           <%= form.submit "Create Book", class: "btn w-full bg-[#111F4D] text-white rounded-xl" %>
         </div>

@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   resources :books do
     # Nested bookmark routes
     resource :bookmarks, only: [:create, :destroy]
-    
+
+    member do
+      get 'download'
+    end
+
     # Define the 'details' route
     get 'details', on: :member
   end
