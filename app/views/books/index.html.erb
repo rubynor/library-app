@@ -103,7 +103,7 @@
             </div>
 
 
-            <%= form_with(model: Review.new, url: reviews_path, local: true, class: "space-y-3") do |form| %>
+            <%= form_with(model: Review.new, url: reviews_path, local: false, class: "space-y-3") do |form| %>
               <h3 class="text-xl font-bold">Review</h3>
               
               <%= form.hidden_field :book_id, data: { book_review_target: "bookId" } %>
@@ -124,6 +124,7 @@
                 <button class="btn text-[#111F4D] mt-4 rounded-xl ml-auto">Read book</button>
               </div>
             <% end %>
+
 
           </div>
 

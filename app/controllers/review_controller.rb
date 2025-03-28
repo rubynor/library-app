@@ -1,10 +1,9 @@
-# app/controllers/reviews_controller.rb
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def create
     @review = current_user.reviews.build(review_params)
-    
+
     if @review.save
       redirect_back fallback_location: root_path, notice: 'Review added successfully.'
     else
