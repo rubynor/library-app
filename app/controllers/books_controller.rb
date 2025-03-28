@@ -73,9 +73,10 @@ class BooksController < ApplicationController
       :title,
       :author,
       :description,
-      :cover_image_url,
+      :cover_image,
       :pages,
       :pdf_file
     )
   end
+  
 end

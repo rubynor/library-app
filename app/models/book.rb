@@ -8,6 +8,8 @@ class Book < ApplicationRecord
   validates :title, :author, :description, presence: true
   has_many :bookmarked_by, through: :bookmarks, source: :user
 
+  has_one_attached :cover_image
+  validates :cover_image, presence: true
 
   
   def pdf_available?

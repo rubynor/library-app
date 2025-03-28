@@ -8,7 +8,13 @@
       <div class="card-body">
         <div class="flex space-x-5">
           <div class="w-2/7 md:w-1/6">
-            <img src="<%= book.cover_image_url %>" alt="<%= book.title %> book cover" class="rounded-xl">
+            <% if book.cover_image.attached? %>
+              <%= image_tag book.cover_image %>
+            <% else %>
+              <p>No cover image available</p>
+            <% end %>
+
+
           </div>
           <div class="w-5/7 md:w-5/6">
             <div class="h-2/4">

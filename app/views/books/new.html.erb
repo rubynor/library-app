@@ -14,15 +14,11 @@
           <%= form.text_field :author, class: "grow w-full", placeholder: "Author Name" %>
         </div>
         <%= form.text_area :description, class: "textarea w-full", placeholder: "Description" %>
-        <div class="field input w-full">
-          <%= form.text_field :cover_image_url, class: "grow w-full", placeholder: "Cover Image URL" %>
-        </div>
+        <%= form.file_field :cover_image, class: "file-input file-input-bordered w-full" %>
         <div class="field input w-full">
           <%= form.number_field :pages, class: "grow w-full", placeholder: "Number of Pages" %>
         </div>
-        <div class="field input w-full">
-          <%= form.file_field :pdf_file, accept: 'application/pdf', class: "file-input file-input-bordered w-full" %>
-        </div>
+        <%= form.file_field :pdf_file, accept: 'application/pdf', class: "file-input file-input-bordered w-full" %>
         <div class="w-full actions text-center space-y-5">
           <%= form.submit "Create Book", class: "btn w-full bg-[#111F4D] text-white rounded-xl" %>
         </div>
