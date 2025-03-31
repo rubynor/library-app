@@ -8,10 +8,10 @@
           <h1 class="md:text-3xl md:font-bold font-semibold text-xl">Books</h1>
           <div class="flex">
             <div class="filter w-full md:w-1/2">
-              <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
-              <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Education"/>
-              <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Business"/>
-              <input class="btn bg-[#F9F9F9] text-[#BDBDBD] shadow-none border-none" type="radio" name="metaframeworks" aria-label="Sci-fi"/>
+              <input class="btn bg-[#F9F9F9] text-gray-100 shadow-none border-none filter-reset" type="radio" name="metaframeworks" aria-label="All"/>
+              <input class="btn bg-[#F9F9F9] text-gray-100 shadow-none border-none" type="radio" name="metaframeworks" aria-label="Education"/>
+              <input class="btn bg-[#F9F9F9] text-gray-100 shadow-none border-none" type="radio" name="metaframeworks" aria-label="Business"/>
+              <input class="btn bg-[#F9F9F9] text-gray-100 shadow-none border-none" type="radio" name="metaframeworks" aria-label="Sci-fi"/>
             </div>
             <div class="hidden lg:flex w-1/2 justify-end">
               <div data-controller="book-search" class="ml-auto">
@@ -44,7 +44,7 @@
             <div class="w-1/2 flex items-center justify-end">
               <label class="cursor-pointer">
                 <input type="checkbox" class="hidden peer">
-                <div class="btn p-2 shadow-xl fill-[#BDBDBD] bg-white color-[#BDBDBD] peer-checked:fill-white peer-checked:bg-[#FC674E] peer-checked:border-none rounded-lg">
+                <div class="btn p-2 shadow-xl fill-gray-100 bg-white color-gray-100 peer-checked:fill-white peer-checked:bg-[#FC674E] peer-checked:border-none rounded-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="" class="bi bi-bookmark-plus-fill peer-checked:fill-white" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5m6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5z"/>
                   </svg>
@@ -116,8 +116,8 @@
               <div>
                 <p>About</p>
                 <%= form.text_area :content, class: "textarea textarea-bordered w-full mt-3", placeholder: "Write your review..." %>
-                <%= form.submit "Add review", class: "btn bg-[#111F4D] text-white mt-4 rounded-xl ml-auto" %>
-                <button class="btn text-[#111F4D] mt-4 rounded-xl ml-auto">Read book</button>
+                <%= form.submit "Add review", class: "btn bg-blue-500 text-white mt-4 rounded-xl ml-auto" %>
+                <button class="btn text-blue-500 mt-4 rounded-xl ml-auto">Read book</button>
               </div>
             <% end %>
 

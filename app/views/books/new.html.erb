@@ -1,8 +1,8 @@
-<div class="bg-[#F2F4F7] h-screen w-screen flex items-center justify-center">
-  <div class="bg-white p-8 py-12 rounded-3xl text-[#757575] w-[30rem]">
+<div class="bg-gray-50 h-screen w-screen flex items-center justify-center">
+  <div class="bg-white p-8 py-12 rounded-3xl text-gray-200 w-[30rem]">
     <div class="text-center mb-12 space-y-3">
-      <h2 class="text-[#212121] text-3xl font-extrabold">Create Book</h2>
-      <p class="text-[#757575]">Fill out the details of the book below.</p>
+      <h2 class="text-gray-700 text-3xl font-extrabold">Create Book</h2>
+      <p class="text-gray-200">Fill out the details of the book below.</p>
     </div>
 
     <%= form_with(model: @book, local: true, html: { multipart: true }) do |form| %>
@@ -20,7 +20,7 @@
         </div>
         <%= form.file_field :pdf_file, accept: 'application/pdf', class: "file-input file-input-bordered w-full" %>
         <div class="w-full actions text-center space-y-5">
-          <%= form.submit "Create Book", class: "btn w-full bg-[#111F4D] text-white rounded-xl" %>
+          <%= form.submit "Create Book", class: "btn w-full bg-blue-500 text-white rounded-xl" %>
         </div>
       </div>
     <% end %>

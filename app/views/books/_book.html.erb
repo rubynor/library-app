@@ -35,14 +35,14 @@
               </span>
               <div class="rating rating-xs">
                 <% 5.times do |i| %>
-                  <input disabled type="radio" name="rating-<%= book.id %>" class="mask mask-star-2 bg-orange-400" <%= 'checked' if (book.reviews.average(:rating) || 0) > i %> aria-label="<%= i + 1 %> star">
+                  <input disabled type="radio" name="rating-<%= book.id %>" class="mask mask-star-2 bg-orange-100" <%= 'checked' if (book.reviews.average(:rating) || 0) > i %> aria-label="<%= i + 1 %> star">
                 <% end %>
               </div>  
               <span class="hidden md:block">(<%= book.reviews.count %> Reviews)</span>
             </div>
             <div class="space-x-4 h-1/4 lg:flex hidden items-end">
               <label for="review-drawer" 
-                  class="btn py-6 rounded-xl btn-outline text-[#111F4D] border-[#E5E5E7] cursor-pointer"
+                  class="btn py-6 rounded-xl btn-outline text-blue-500 border-[#E5E5E7] cursor-pointer"
                   data-book-id="<%= book.id %>"
                   data-action="click->book-review#open"
               >
@@ -50,10 +50,10 @@
               </label>
               <% if book.pdf_file.attached? %>
                 <%= link_to "Read", download_book_path(book), 
-                    class: "btn py-6 rounded-xl bg-[#111F4D] text-white",
+                    class: "btn py-6 rounded-xl bg-blue-500 text-white",
                     method: :get %>
               <% else %>
-                <button class="btn py-6 rounded-xl bg-[#111F4D] text-white" disabled>
+                <button class="btn py-6 rounded-xl bg-blue-500 text-white" disabled>
                   No PDF Available
                 </button>
               <% end %>

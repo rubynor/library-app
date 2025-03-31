@@ -5,3 +5,18 @@
 @source "../../../app/views/**/*";
 
 @plugin "./daisyui.js";
+
+@theme {
+    --color-gray-50: oklch(0.97 0.0045 258.32);
+    --color-gray-100: oklch(0.8 0 0);
+    --color-gray-200: oklch(0.56 0 0);
+
+    --color-black-700: oklch(0.25 0 0);
+    --color-black-800: oklch(0.09 0.0139 283.18);
+
+    --color-orange-100: oklch(0.61 0.2108 32.67);
+
+    --color-blue-500: oklch(0.26 0.0871 267.23);
+
+    --color-beige-100: oklch(0.88 0.025 83.41);
+}
