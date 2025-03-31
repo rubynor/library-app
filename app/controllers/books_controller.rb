@@ -3,19 +3,21 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.includes(:user, :reviews)
-
+  
     if params[:query].present?
       @books = @books.where("title LIKE ?", "%#{params[:query]}%")
     end
-
-    if params[:sort_by] == "title"
-      @books = @books.order(:title)
-    elsif params[:sort_by] == "date_added"
-      @books = @books.order(created_at: :desc)
-    else
-      @books = @books.order(created_at: :desc)
-    end
+  
+    sort_column = params[:sort_by].in?(%w[title date_added]) ? params[:sort_by] : "date_added"
+    sort_order = params[:sort_order] == "asc" ? :asc : :desc
+  
+    @books = if sort_column == "date_added"
+               @books.order(created_at: sort_order)
+             else
+               @books.order(title: sort_order)
+             end
   end
+  
 
   def details
     book = Book.find_by(id: params[:id])

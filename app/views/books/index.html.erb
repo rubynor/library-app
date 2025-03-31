@@ -15,11 +15,7 @@
             </div>
             <div class="hidden lg:flex w-1/2 justify-end">
               <div data-controller="book-search" class="ml-auto">
-                <select class="select" data-book-search-target="sort" id="sort-dropdown">
-                  <option disabled <%= params[:sort_by].blank? ? 'selected' : '' %>>Sort</option>
-                  <option value="title" <%= params[:sort_by] == 'title' ? 'selected' : '' %>>Title</option>
-                  <option value="date_added" <%= params[:sort_by] == 'date_added' ? 'selected' : '' %>>Date Added</option>
-                </select>
+                <%= render "select_sort" %>
               </div>
             </div>
           </div>

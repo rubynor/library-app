@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["input", "button", "sort"];
+  static targets = ["input", "button", "sort", "order"];
 
   connect() {
     // Add event listeners for search input
@@ -28,7 +28,16 @@ export default class extends Controller {
     if (this.hasSortTarget) {
       this.sortTargets.forEach(sortDropdown => {
         sortDropdown.addEventListener("change", () => {
-          this.performSort(sortDropdown);
+          this.performSort();
+        });
+      });
+    }
+
+    // Add event listeners for sort order (ascending/descending)
+    if (this.hasOrderTarget) {
+      this.orderTargets.forEach(orderRadio => {
+        orderRadio.addEventListener("change", () => {
+          this.performSort();
         });
       });
     }
@@ -37,24 +46,27 @@ export default class extends Controller {
   performSearch(inputElement) {
     const query = inputElement.value.trim();
     const urlParams = new URLSearchParams(window.location.search);
-    const sortBy = urlParams.get("sort_by") || "";
-
-    urlParams.set("query", query);
-    if (sortBy) {
-      urlParams.set("sort_by", sortBy);
+    
+    if (query) {
+      urlParams.set("query", query);
+    } else {
+      urlParams.delete("query");
     }
 
     window.location.href = `?${urlParams.toString()}`;
   }
 
-  performSort(sortDropdown) {
-    const sortValue = sortDropdown.value;
+  performSort() {
     const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get("query") || "";
+    const selectedSort = this.sortTargets.find(radio => radio.checked)?.value;
+    const selectedOrder = this.orderTargets.find(radio => radio.checked)?.value;
 
-    urlParams.set("sort_by", sortValue);
-    if (query) {
-      urlParams.set("query", query);
+    if (selectedSort) {
+      urlParams.set("sort_by", selectedSort);
+    }
+    
+    if (selectedOrder) {
+      urlParams.set("sort_order", selectedOrder);
     }
 
     window.location.href = `?${urlParams.toString()}`;
