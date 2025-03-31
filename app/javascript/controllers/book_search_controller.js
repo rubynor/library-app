@@ -1,30 +1,26 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["input", "button", "sort", "order"];
+  static targets = ["input", "button", "sort", "order", "checkbox"];
 
   connect() {
-    // Add event listeners for search input
     this.inputTargets.forEach(input => {
       input.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
-          this.performSearch(input);
+          this.performSearch();
         }
       });
     });
 
-    // Add event listeners for search button
     if (this.hasButtonTarget) {
       this.buttonTargets.forEach(button => {
         button.addEventListener("click", () => {
-          const associatedInput = button.closest('.input').querySelector('input[type="search"]');
-          this.performSearch(associatedInput);
+          this.performSearch();
         });
       });
     }
 
-    // Add event listeners for sort dropdowns
     if (this.hasSortTarget) {
       this.sortTargets.forEach(sortDropdown => {
         sortDropdown.addEventListener("change", () => {
@@ -33,7 +29,6 @@ export default class extends Controller {
       });
     }
 
-    // Add event listeners for sort order (ascending/descending)
     if (this.hasOrderTarget) {
       this.orderTargets.forEach(orderRadio => {
         orderRadio.addEventListener("change", () => {
@@ -41,16 +36,34 @@ export default class extends Controller {
         });
       });
     }
+
+    if (this.hasCheckboxTarget) {
+      this.checkboxTargets.forEach(checkbox => {
+        checkbox.addEventListener("change", () => {
+          this.performSearch();
+        });
+      });
+    }
   }
 
-  performSearch(inputElement) {
-    const query = inputElement.value.trim();
+  performSearch() {
+    const query = this.inputTargets[0]?.value.trim();
     const urlParams = new URLSearchParams(window.location.search);
-    
+
     if (query) {
       urlParams.set("query", query);
     } else {
       urlParams.delete("query");
+    }
+
+    const selectedCategories = this.checkboxTargets
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+
+    if (selectedCategories.length > 0) {
+      urlParams.set("categories", selectedCategories.join(","));
+    } else {
+      urlParams.delete("categories");
     }
 
     window.location.href = `?${urlParams.toString()}`;
@@ -64,7 +77,7 @@ export default class extends Controller {
     if (selectedSort) {
       urlParams.set("sort_by", selectedSort);
     }
-    
+
     if (selectedOrder) {
       urlParams.set("sort_order", selectedOrder);
     }
