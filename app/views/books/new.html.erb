@@ -7,18 +7,49 @@
 
     <%= form_with(model: @book, local: true, html: { multipart: true }) do |form| %>
       <div class="space-y-6">
-        <div class="field input w-full">
-          <%= form.text_field :title, class: "grow w-full", placeholder: "Book Title" %>
+        <div class="flex gap-2">
+          <div class="field input w-full">
+            <%= form.text_field :title, class: "grow w-full", placeholder: "Book Title" %>
+          </div>
+          <div class="field input w-full">
+            <%= form.text_field :author, class: "grow w-full", placeholder: "Author Name" %>
+          </div>
+
         </div>
-        <div class="field input w-full">
-          <%= form.text_field :author, class: "grow w-full", placeholder: "Author Name" %>
-        </div>
-        <%= form.text_area :description, class: "textarea w-full", placeholder: "Description" %>
-        <%= form.file_field :cover_image, class: "file-input file-input-bordered w-full" %>
+
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">Image cover</legend>
+            <%= form.file_field :cover_image, class: "file-input file-input-bordered w-full", accept: "image/*" %>
+          </fieldset>
+
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">Book pdf</legend>
+          <%= form.file_field :pdf_file, accept: 'application/pdf', class: "file-input file-input-bordered w-full" %>
+        </fieldset>
+
+        
         <div class="field input w-full">
           <%= form.number_field :pages, class: "grow w-full", placeholder: "Number of Pages" %>
         </div>
-        <%= form.file_field :pdf_file, accept: 'application/pdf', class: "file-input file-input-bordered w-full" %>
+        <%= form.text_area :description, class: "textarea w-full", placeholder: "Description" %>
+
+        <div class="field">
+          <label class="block text-gray-700 font-bold mb-2">Categories</label>
+          <div class="flex flex-wrap gap-2">
+            <% @categories.each do |category| %>
+              <input 
+                type="checkbox" 
+                class="btn w-fit" 
+                name="book[category_ids][]" 
+                value="<%= category.id %>" 
+                <%= "checked" if @book.categories.include?(category) %>
+                aria-label="<%= category.name %>"
+              />
+
+            <% end %>
+          </div>
+        </div>
+
         <div class="w-full actions text-center space-y-5">
           <%= form.submit "Create Book", class: "btn w-full bg-blue-500 text-white rounded-xl" %>
         </div>

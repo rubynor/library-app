@@ -11,6 +11,9 @@ class Book < ApplicationRecord
   has_one_attached :cover_image
   validates :cover_image, presence: true
 
+  has_many :book_categories, dependent: :destroy
+  has_many :categories, through: :book_categories
+
   
   def pdf_available?
     pdf_file.attached?

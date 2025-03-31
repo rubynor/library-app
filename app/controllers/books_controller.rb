@@ -2,25 +2,24 @@ class BooksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @books = Book.includes(:user, :reviews)
-  
+    @books = Book.includes(:user, :reviews, :categories)
+
     if params[:query].present?
       @books = @books.where("title LIKE ?", "%#{params[:query]}%")
     end
-  
+
     sort_column = params[:sort_by].in?(%w[title date_added]) ? params[:sort_by] : "date_added"
     sort_order = params[:sort_order] == "asc" ? :asc : :desc
-  
+
     @books = if sort_column == "date_added"
                @books.order(created_at: sort_order)
              else
                @books.order(title: sort_order)
              end
   end
-  
 
   def details
-    book = Book.find_by(id: params[:id])
+    book = Book.includes(:categories).find_by(id: params[:id])
     if book
       render json: {
         id: book.id,
@@ -30,7 +29,8 @@ class BooksController < ApplicationController
         pages: book.pages,
         rating_count: book.reviews.average(:rating) || 0,
         review_count: book.reviews.count,
-        description: book.description
+        description: book.description,
+        categories: book.categories.pluck(:name)
       }
     else
       render json: { error: "Book not found" }, status: :not_found
@@ -39,14 +39,17 @@ class BooksController < ApplicationController
 
   def new
     @book = Book.new
+    @categories = Category.all
   end
 
   def create
     @book = current_user.books.build(book_params)
 
     if @book.save
+      @book.category_ids = params[:book][:category_ids] if params[:book][:category_ids].present?
       redirect_to books_path, notice: "Book was successfully created."
     else
+      @categories = Category.all
       flash.now[:alert] = "There was an error creating the book."
       render :new, status: :unprocessable_entity
     end
@@ -54,13 +57,13 @@ class BooksController < ApplicationController
 
   def download
     @book = Book.find(params[:id])
-    
+
     if @book.pdf_file.attached?
       filename = "#{@book.title.parameterize}-#{@book.id}.pdf"
-      
-      send_data @book.pdf_file.download, 
-                filename: filename, 
-                type: 'application/pdf', 
+
+      send_data @book.pdf_file.download,
+                filename: filename,
+                type: 'application/pdf',
                 disposition: 'attachment'
     else
       flash[:alert] = "No PDF file available for this book."
@@ -77,8 +80,8 @@ class BooksController < ApplicationController
       :description,
       :cover_image,
       :pages,
-      :pdf_file
+      :pdf_file,
+      category_ids: []
     )
   end
-  
 end
