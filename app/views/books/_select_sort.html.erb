@@ -1,6 +1,6 @@
 <div class="dropdown dropdown-bottom dropdown-end">
-    <div tabindex="0" role="button" class="btn bg-transparent m-1 w-40 flex justify-start">
-        <div class="flex items-center justify-start w-4/5 gap-2">
+    <div tabindex="0" role="button" class="btn bg-transparent m-1 w-fit md:w-40 flex justify-start">
+        <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
             <span class="text-[#718096]">Sort By:</span>
             <span class="font-semibold">
                 <%= params[:sort_by] == 'title' ? 'Title' : params[:sort_by] == 'date_added' ? 'Date Added' : 'None' %>

@@ -7,7 +7,7 @@
         <div class="space-y-4">
           <h1 class="md:text-3xl md:font-bold font-semibold text-xl">Books</h1>
           <div class="flex">
-            <div class="flex flex-wrap gap-2 w-full md:w-3/5" data-controller="book-search">
+            <div class="flex flex-wrap gap-2 w-full lg:w-6/8" data-controller="book-search">
               <% Category.all.each do |category| %>
                 <label class="cursor-pointer">
                   <input type="checkbox"
@@ -21,7 +21,7 @@
                 </label>
               <% end %>
             </div>
-            <div class="hidden lg:flex w-2/5 justify-end">
+            <div class="hidden lg:flex w-2/8 justify-end">
               <div data-controller="book-search" class="ml-auto">
                 <%= render "select_sort" %>
               </div>
@@ -32,7 +32,7 @@
         <h2 class="text-xl mb-6 font-semibold">
           <%= params[:query].present? ? 'Search Results' : 'Recently added' %>
         </h2>
-        <div id="books-container" data-controller="book-search">
+        <div id="books-container" class="pb-10" data-controller="book-search">
           <%= render "book" %>
         </div>
       </div>
@@ -41,7 +41,7 @@
         <label for="review-drawer" class="drawer-overlay"></label>
         <div class="w-96 p-5 h-full overflow-y-scroll shadow-lg bg-[#F2F2F7] space-y-6 pt-12">
           <div class="flex items-center px-4 md:hidden">
-            <div class="w-1/2 flex items-center justify-start">
+            <div class="w-full flex items-center justify-start">
               <label for="review-drawer" class="top-4 right-4 hover:bg-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
@@ -49,17 +49,6 @@
               </label>
             </div>
 
-            <div class="w-1/2 flex items-center justify-end">
-              <label class="cursor-pointer">
-                <input type="checkbox" class="hidden peer">
-                <div class="btn p-2 shadow-xl fill-gray-100 bg-white color-gray-100 peer-checked:fill-white peer-checked:bg-[#FC674E] peer-checked:border-none rounded-lg">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="" class="bi bi-bookmark-plus-fill peer-checked:fill-white" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5m6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5z"/>
-                  </svg>
-                </div>
-              </label>
-
-            </div>
           </div>
           <div class="grid justify-center items-center space-y-4">
             <div class="m-auto mb-1">
