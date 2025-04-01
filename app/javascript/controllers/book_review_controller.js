@@ -11,7 +11,11 @@ export default class extends Controller {
     })
       .then(response => response.json())
       .then(data => {
-        this.coverTarget.src = data.cover_image_url;
+
+        if (this.hasCoverTarget) {
+          this.coverTarget.src = data.cover_url || "";
+        }
+
         this.titleTarget.textContent = data.title;
         this.addedByTarget.textContent = data.added_by;
         this.pagesTarget.textContent = data.pages || "0";

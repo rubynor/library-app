@@ -39,10 +39,10 @@
 
       <div class="drawer-side" data-book-review-target="drawer">
         <label for="review-drawer" class="drawer-overlay"></label>
-        <div class="w-96 p-5 h-full overflow-y-scroll shadow-lg bg-[#F2F2F7] space-y-6 pt-12">
+        <div class="w-96 p-5 h-full overflow-y-scroll shadow-lg bg-[#F2F2F7] space-y-6 pt-12 mb-4">
           <div class="flex items-center px-4 md:hidden">
             <div class="w-full flex items-center justify-start">
-              <label for="review-drawer" class="top-4 right-4 hover:bg-gray-400">
+              <label for="review-drawer" class="top-4 right-4 hover:bg-gray-400 duration-100 hover:translate-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
                 </svg>
@@ -51,8 +51,8 @@
 
           </div>
           <div class="grid justify-center items-center space-y-4">
-            <div class="m-auto mb-1">
-              <img data-book-review-target="cover" src="" alt="Book cover" class="rounded-xl w-40">
+            <div class="m-auto mb-3">
+              <img data-book-review-target="cover" src="" alt="Book cover" class="rounded-xl w-52">
             </div>
 
             <div class="text-center">
@@ -66,9 +66,9 @@
               </div>
             </div>
 
-            <div class="m-auto">
+            <div class="m-auto space-y-6">
               <div class="flex justify-center items-center space-x-3">
-                <div data-book-review-target="ratingStars" class="rating rating-xs"></div>
+                <div data-book-review-target="ratingStars" class="rating rating-sm"></div>
               </div>
               <div class="stats stats-horizontal">
                 <div class="stat">

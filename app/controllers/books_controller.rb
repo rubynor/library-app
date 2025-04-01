@@ -30,7 +30,7 @@ class BooksController < ApplicationController
       render json: {
         id: book.id,
         title: book.title,
-        cover_image_url: book.cover_image_url,
+        cover_url: book.cover_image.attached? ? url_for(book.cover_image) : nil,
         added_by: book.user.first_name,
         pages: book.pages,
         rating_count: book.reviews.average(:rating) || 0,
