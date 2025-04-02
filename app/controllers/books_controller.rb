@@ -23,6 +23,20 @@ class BooksController < ApplicationController
              end
   end
   
+  def user_review
+    return render json: { error: "Not authenticated" }, status: :unauthorized unless current_user
+    
+    book = Book.find_by(id: params[:id])
+    return render json: { error: "Book not found" }, status: :not_found unless book
+    
+    review = current_user.reviews.find_by(book_id: book.id)
+    
+    if review
+      render json: { review: { rating: review.rating, content: review.content } }
+    else
+      render json: { review: nil }
+    end
+  end
 
   def details
     book = Book.includes(:categories).find_by(id: params[:id])
