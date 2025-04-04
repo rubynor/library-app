@@ -33,7 +33,11 @@
           <%= params[:query].present? ? 'Search Results' : 'Recently added' %>
         </h2>
         <div id="books-container" class="pb-10" data-controller="book-search">
-          <%= render "book" %>
+          <div class="grid grid-cols-6 gap-6">
+            <% @books.each do |book| %>
+              <%= render "book", book: book%>
+            <% end %>
+          </div>
         </div>
       </div>
 

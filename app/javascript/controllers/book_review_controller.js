@@ -2,8 +2,8 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = [
-    "drawer", "cover", "title", "addedBy", "pages", "rating", 
-    "reviewCount", "description", "bookId", "ratingStars", 
+    "drawer", "cover", "title", "addedBy", "pages", "rating",
+    "reviewCount", "description", "bookId", "ratingStars",
     "reviewForm", "userReviewSection", "userReviewContent", "userReviewRating"
   ];
 
@@ -15,8 +15,11 @@ export default class extends Controller {
   }
 
   open(event) {
-    const bookId = event.currentTarget.dataset.bookId;
+    if (event.currentTarget.classList.contains('card') && window.innerWidth >= 768) {
+      return;
+    }
     
+    const bookId = event.currentTarget.dataset.bookId;
     fetch(`/books/${bookId}/details`, {
       headers: { "Accept": "application/json" }
     })
@@ -34,13 +37,15 @@ export default class extends Controller {
       this.reviewCountTarget.textContent = data.review_count || "0";
       this.descriptionTarget.textContent = data.description;
       this.bookIdTarget.value = data.id;
-      
       this.checkExistingReview(bookId);
-      
       document.getElementById("review-drawer").checked = true;
     });
   }
-  
+
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
+
   checkExistingReview(bookId) {
     fetch(`/books/${bookId}/user_review`, {
       headers: { "Accept": "application/json" }
@@ -50,7 +55,6 @@ export default class extends Controller {
       if (data.review) {
         this.reviewFormTarget.classList.add('hidden');
         this.userReviewSectionTarget.classList.remove('hidden');
-        
         this.userReviewContentTarget.textContent = data.review.content;
         this.renderUserRating(data.review.rating);
       } else {
@@ -59,7 +63,7 @@ export default class extends Controller {
       }
     });
   }
-  
+
   renderStars(rating) {
     const starsContainer = this.ratingStarsTarget;
     starsContainer.innerHTML = '';
@@ -75,7 +79,7 @@ export default class extends Controller {
       starsContainer.appendChild(star);
     }
   }
-  
+
   renderUserRating(rating) {
     const starsContainer = this.userReviewRatingTarget;
     starsContainer.innerHTML = '';
