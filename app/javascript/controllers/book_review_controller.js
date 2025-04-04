@@ -6,7 +6,14 @@ export default class extends Controller {
     "reviewCount", "description", "bookId", "ratingStars", 
     "reviewForm", "userReviewSection", "userReviewContent", "userReviewRating"
   ];
-  
+
+  connect() {
+    const drawerCheckbox = document.getElementById("review-drawer");
+    if (drawerCheckbox) {
+      drawerCheckbox.checked = false;
+    }
+  }
+
   open(event) {
     const bookId = event.currentTarget.dataset.bookId;
     
