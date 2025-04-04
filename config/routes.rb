@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   
   root 'books#index'
-  
+  get "books/:id/all_reviews", to: "books#all_reviews"
+
   resources :books do
     resource :bookmarks, only: [:create, :destroy]
 

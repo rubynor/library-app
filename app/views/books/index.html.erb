@@ -99,51 +99,41 @@
               <p data-book-review-target="description"></p>
             </div>
 
-            <div data-book-review-target="userReviewSection" class="hidden space-y-3">
-              <h3 class="text-xl font-bold">Your Review</h3>
-              
-              <div>
-                <p>Your Rating</p>
-                <div data-book-review-target="userReviewRating" class="rating rating-sm"></div>
+            <div class="mt-8 space-y-12">
+              <div data-book-review-target="allReviewsSection" class="space-y-4">
+                <h3 class="text-xl font-bold">All Reviews</h3>
+                <div data-book-review-target="allReviewsList" class="space-y-4"></div>
               </div>
 
-              <div>
-                <p>Your Thoughts</p>
-                <div class="p-3 bg-white rounded-lg mt-2">
-                  <p data-book-review-target="userReviewContent"></p>
-                </div>
-                
-                <div class="flex justify-end mt-4">
-                  <button class="btn text-blue-500 rounded-xl">Read book</button>
-                </div>
+              <div data-book-review-target="reviewForm">
+                <%= form_with(model: Review.new, url: reviews_path, local: false, class: "space-y-3") do |form| %>
+                  <h3 class="text-xl font-bold">Review</h3>
+                  
+                  <%= form.hidden_field :book_id, data: { book_review_target: "bookId" } %>
+                  
+                  <div>
+                    <p>Rating</p>
+                    <div class="rating rating-sm">
+                      <% 5.times do |i| %>
+                        <%= form.radio_button :rating, i+1, class: "mask mask-star-2 bg-orange-400", "aria-label": "#{i+1} star" %>
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p>About</p>
+                    <%= form.text_area :content, class: "textarea textarea-bordered w-full mt-3", placeholder: "Write your review..." %>
+                    <div class="flex justify-between mt-4">
+                      <%= form.submit "Add review", class: "btn bg-blue-500 text-white mt-4 rounded-xl" %>
+                      <button class="btn text-blue-500 mt-4 rounded-xl ml-auto">Read book</button>
+                    </div>
+                  </div>
+                <% end %>
               </div>
             </div>
 
-            <div data-book-review-target="reviewForm">
-              <%= form_with(model: Review.new, url: reviews_path, local: false, class: "space-y-3") do |form| %>
-                <h3 class="text-xl font-bold">Review</h3>
-                
-                <%= form.hidden_field :book_id, data: { book_review_target: "bookId" } %>
-                
-                <div>
-                  <p>Rating</p>
-                  <div class="rating rating-sm">
-                    <% 5.times do |i| %>
-                      <%= form.radio_button :rating, i+1, class: "mask mask-star-2 bg-orange-400", "aria-label": "#{i+1} star" %>
-                    <% end %>
-                  </div>
-                </div>
 
-                <div>
-                  <p>About</p>
-                  <%= form.text_area :content, class: "textarea textarea-bordered w-full mt-3", placeholder: "Write your review..." %>
-                  <div class="flex justify-between mt-4">
-                    <%= form.submit "Add review", class: "btn bg-blue-500 text-white mt-4 rounded-xl" %>
-                    <button class="btn text-blue-500 mt-4 rounded-xl ml-auto">Read book</button>
-                  </div>
-                </div>
-              <% end %>
-            </div>
+
           </div>
 
         </div>

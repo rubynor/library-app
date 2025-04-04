@@ -4,8 +4,10 @@ export default class extends Controller {
   static targets = [
     "drawer", "cover", "title", "addedBy", "pages", "rating",
     "reviewCount", "description", "bookId", "ratingStars",
-    "reviewForm", "userReviewSection", "userReviewContent", "userReviewRating"
+    "reviewForm", "userReviewSection", "userReviewContent", "userReviewRating",
+    "allReviewsSection", "allReviewsList"
   ];
+  
 
   connect() {
     const drawerCheckbox = document.getElementById("review-drawer");
@@ -38,9 +40,52 @@ export default class extends Controller {
       this.descriptionTarget.textContent = data.description;
       this.bookIdTarget.value = data.id;
       this.checkExistingReview(bookId);
+      this.fetchAllReviews(bookId);
       document.getElementById("review-drawer").checked = true;
     });
   }
+
+  fetchAllReviews(bookId) {
+    fetch(`/books/${bookId}/all_reviews`, {
+      headers: { "Accept": "application/json" }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const container = this.allReviewsListTarget;
+        container.innerHTML = "";
+  
+        if (data.reviews.length === 0) {
+          container.innerHTML = "<p class='text-sm text-gray-500'>No reviews yet.</p>";
+          return;
+        }
+  
+        data.reviews.forEach(review => {
+          const reviewDiv = document.createElement("div");
+          reviewDiv.classList.add("p-4", "bg-white", "rounded-lg", "shadow");
+  
+          reviewDiv.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+              <p class="font-semibold">${review.user}</p>
+              <div class="rating rating-sm">
+                ${this.renderStaticStars(review.rating)}
+              </div>
+            </div>
+            <p class="text-gray-700">${review.content}</p>
+          `;
+  
+          container.appendChild(reviewDiv);
+        });
+      });
+  }
+  
+  renderStaticStars(rating) {
+    let stars = "";
+    for (let i = 1; i <= 5; i++) {
+      stars += `<input type="radio" class="mask mask-star-2 bg-orange-400" disabled ${i <= rating ? "checked" : ""} />`;
+    }
+    return stars;
+  }
+  
 
   stopPropagation(event) {
     event.stopPropagation();

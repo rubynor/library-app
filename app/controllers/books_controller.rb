@@ -22,6 +22,25 @@ class BooksController < ApplicationController
                @books.order(title: sort_order)
              end
   end
+
+  def all_reviews
+    book = Book.includes(reviews: :user).find_by(id: params[:id])
+  
+    if book
+      reviews = book.reviews.map do |review|
+        {
+          user: review.user.first_name,
+          content: review.content,
+          rating: review.rating
+        }
+      end
+  
+      render json: { reviews: reviews }
+    else
+      render json: { error: "Book not found" }, status: :not_found
+    end
+  end
+  
   
   def user_review
     return render json: { error: "Not authenticated" }, status: :unauthorized unless current_user
