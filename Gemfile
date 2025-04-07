@@ -25,9 +25,8 @@ gem "jbuilder"
 
 gem 'tailwindcss-rails'
 
-gem 'turbo-rails'
-
 gem 'dotenv-rails'
+
 gem 'sendgrid-ruby'
 
 group :development do
