@@ -1,4 +1,4 @@
 web: bundle exec puma -C config/puma.rb
-js: yarn build:js --watch
-worker: bundle exec sidekiq -C config/sidekiq.yml
+js: yarn build
+css: bin/rails assets:precompile
 release: bundle exec rails db:migrate
