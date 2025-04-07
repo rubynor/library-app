@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_04_04_122031) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,8 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_122031) do
   end
 
   create_table "book_categories", force: :cascade do |t|
-    t.integer "book_id", null: false
-    t.integer "category_id", null: false
+    t.bigint "book_id", null: false
+    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_book_categories_on_book_id"
@@ -49,8 +52,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_122031) do
   end
 
   create_table "bookmarks", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "book_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "book_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_bookmarks_on_book_id"
@@ -63,7 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_122031) do
     t.text "description"
     t.string "cover_image_url"
     t.integer "pages"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_books_on_user_id"
@@ -76,8 +79,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_122031) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "book_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "book_id", null: false
     t.integer "rating"
     t.text "content"
     t.datetime "created_at", null: false
