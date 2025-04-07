@@ -8,9 +8,6 @@ gem "rails", "~> 7.1.5"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", ">= 1.4"
-
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
@@ -37,6 +34,7 @@ group :development do
   gem 'letter_opener'
 end
 
+gem 'pg'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
