@@ -19,8 +19,7 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    postgresql-client \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
+    apt-get install --no-install-recommends -y postgresql-client build-essential git libvips pkg-config
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
