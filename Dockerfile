@@ -14,9 +14,12 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as build
 
-# Install packages needed to build gems
+# Install bash in the build stage
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config libpq-dev
+apt-get install --no-install-recommends -y bash
+
+# Continue with the rest of your Dockerfile
+RUN bundle exec bootsnap precompile app/ lib/
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
