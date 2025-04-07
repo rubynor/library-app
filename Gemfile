@@ -30,6 +30,13 @@ gem 'tailwindcss-rails'
 
 gem 'turbo-rails'
 
+gem 'dotenv-rails'
+gem 'sendgrid-ruby'
+
+group :development do
+  gem 'letter_opener'
+end
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

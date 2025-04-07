@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
-  
+  devise_for :users, controllers: {
+    confirmations: 'devise/confirmations'
+  }
+
   get 'books/index'
   
   get "up" => "rails/health#show", as: :rails_health_check
