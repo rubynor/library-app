@@ -1,0 +1,14 @@
+<div class="flex flex-wrap gap-2 w-full lg:w-6/8" data-controller="book-search">
+  <% Category.all.each do |category| %>
+    <label class="cursor-pointer">
+      <input type="checkbox"
+             class="hidden peer"
+             value="<%= category.name %>"
+             data-book-search-target="checkbox"
+             <%= "checked" if params[:categories]&.include?(category.name) %> />
+      <span class="btn bg-[#F9F9F9] text-gray-700 shadow-none border-none w-fit peer-checked:bg-orange-500 peer-checked:text-white">
+        <%= category.name %>
+      </span>
+    </label>
+  <% end %>
+</div>

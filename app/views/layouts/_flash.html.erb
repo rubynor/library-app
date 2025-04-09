@@ -1,0 +1,22 @@
+<% if notice %>
+  <div role="alert" class="alert alert-success">
+    <%= inline_svg_tag("icons/alert-success.svg", class: "h-6 w-6 shrink-0 stroke-current") rescue nil %>
+    <span><%= notice %></span>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div role="alert" class="alert alert-warning">
+    <%= inline_svg_tag("icons/alert-warning.svg", class: "h-6 w-6 shrink-0 stroke-current") rescue nil %>
+    <span><%= alert %></span>
+  </div>
+<% end %>
+
+<% if defined?(resource) && resource.errors.any? %>
+  <% resource.errors.full_messages.each do |message| %>
+    <div role="alert" class="alert alert-warning">
+      <%= inline_svg_tag("icons/alert-warning.svg", class: "h-6 w-6 shrink-0 stroke-current") rescue nil %>
+      <span><%= message %></span>
+    </div>
+  <% end %>
+<% end %>

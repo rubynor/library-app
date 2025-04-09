@@ -1,0 +1,40 @@
+<div class="grid justify-center items-center space-y-4">
+  <div class="m-auto mb-3">
+    <img data-book-review-target="cover" src="" alt="Book cover" class="rounded-xl w-52">
+  </div>
+
+  <div class="text-center">
+    <h3 data-book-review-target="title" class="font-extrabold text-xl"></h3>
+    <div class="flex text-sm justify-center items-center space-x-2">
+      <p>Added by <span data-book-review-target="addedBy" class="font-semibold"></span></p>
+    </div>
+  </div>
+
+  <div class="m-auto space-y-6">
+    <div class="flex justify-center items-center space-x-3">
+      <div data-book-review-target="ratingStars" class="rating rating-sm"></div>
+    </div>
+    <div class="stats stats-horizontal">
+      <% ["pages", "rating", "reviewCount"].each do |target| %>
+        <div class="stat">
+          <div data-book-review-target="<%= target %>" class="stat-value text-sm">0</div>
+          <div class="stat-desc"><%= target.gsub("Count", "s") %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="px-6 space-y-2">
+  <div>
+    <h3 class="text-xl font-bold mb-2">Short description</h3>
+    <p data-book-review-target="description"></p>
+  </div>
+
+  <div data-book-review-target="allReviewsSection" class="space-y-4">
+    <h3 class="text-xl font-bold">All Reviews</h3>
+    <div data-book-review-target="allReviewsList" class="space-y-4"></div>
+  </div>
+
+  <%= render "review_form" %>
+</div>
