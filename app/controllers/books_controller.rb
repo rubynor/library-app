@@ -42,7 +42,7 @@ class BooksController < ApplicationController
       id: @book.id,
       title: @book.title,
       cover_url: @book.cover_image.attached? ? url_for(@book.cover_image) : nil,
-      added_by: @book.user.first_name,
+      added_by: "#{@book.user.first_name} #{@book.user.last_name}",
       pages: @book.pages,
       rating_count: @book.reviews.average(:rating) || 0,
       review_count: @book.reviews.count,
