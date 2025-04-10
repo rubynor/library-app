@@ -7,16 +7,18 @@
         </svg>
       </label>
 
-      <label class="input bg-[#F4F7FF] border-[#CBD5E0] border-2 hidden lg:flex items-center">
-        <input data-book-search-target="input" type="search" name="query" value="<%= params[:query] %>" class="grow py-6 w-full" placeholder="Search" />
-        <div>
-          <button data-book-search-target="button" class="btn btn-search bg-blue-500 rounded-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-            </svg>
-          </button>
-        </div>
-      </label>
+      <%= form_with url: books_path, method: :get, local: true do %>
+        <label class="input bg-[#F4F7FF] border-[#CBD5E0] border-2 hidden lg:flex items-center">
+          <%= search_field_tag :query, params[:query], placeholder: "Search", class: "grow py-6 w-full" %>
+          <div>
+            <button type="submit" class="btn btn-search bg-blue-500 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg>
+            </button>
+          </div>
+        </label>
+      <% end %>
     </div>
 
     <div class="navbar-center">

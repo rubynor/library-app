@@ -94,11 +94,13 @@ class BooksController < ApplicationController
 
   def apply_search_filters
     if params[:query].present?
-      @books = @books.where("title LIKE ?", "%#{params[:query]}%")
+      query = params[:query].downcase
+      @books = @books.where("LOWER(title) LIKE ?", "%#{query}%")
     end
-
+  
     if params[:categories].present?
-      category_ids = Category.where(name: params[:categories]).pluck(:id)
+      category_names = Array(params[:categories]).map(&:downcase)
+      category_ids = Category.where("LOWER(name) IN (?)", category_names).pluck(:id)
       @books = @books.joins(:categories).where(categories: { id: category_ids })
     end
   end
