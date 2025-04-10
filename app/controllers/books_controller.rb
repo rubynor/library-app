@@ -101,9 +101,13 @@ class BooksController < ApplicationController
     if params[:categories].present?
       category_names = Array(params[:categories]).map(&:downcase)
       category_ids = Category.where("LOWER(name) IN (?)", category_names).pluck(:id)
-      @books = @books.joins(:categories).where(categories: { id: category_ids })
+  
+      if category_ids.any?
+        @books = @books.joins(:categories).where(categories: { id: category_ids }).distinct
+      end
     end
-  end
+  end  
+  
 
   def apply_sorting
     sort_column = params[:sort_by].in?(%w[title date_added]) ? params[:sort_by] : "date_added"
