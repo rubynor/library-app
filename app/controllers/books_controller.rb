@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :details]
+  before_action :authenticate_user!, except: [:details]
+
   before_action :set_book, only: [:details, :user_review, :download]
   before_action :set_categories, only: [:new, :create]
 
