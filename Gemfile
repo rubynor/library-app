@@ -33,8 +33,6 @@ group :development do
   gem 'letter_opener'
 end
 
-gem "tzinfo-data", platforms: [:jruby]
-
 gem 'pg'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
