@@ -20,7 +20,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_options = { from: 'noreply@books.rubynor.com' }
+  config.action_mailer.default_options = { from: 'noreply@rubynor.com' }
 
   config.action_mailer.smtp_settings = {
     user_name: 'apikey',
