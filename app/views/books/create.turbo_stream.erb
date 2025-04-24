@@ -1,0 +1,9 @@
+<%= turbo_stream.prepend "books-container" do %>
+  <%= render partial: "book", locals: { book: @book } %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <div class="alert alert-success">
+    <p><%= flash[:notice] %></p>
+  </div>
+<% end %>

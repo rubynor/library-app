@@ -61,7 +61,13 @@ class BooksController < ApplicationController
     
     if @book.save
       @book.category_ids = params[:book][:category_ids] if params[:book][:category_ids].present?
-      redirect_to books_path, notice: "Book was successfully created."
+      
+      respond_to do |format|
+        format.html { redirect_to books_path, notice: "Book was successfully created." }
+        format.turbo_stream { 
+          flash.now[:notice] = "Book was successfully created."
+        }
+      end
     else
       flash.now[:alert] = "There was an error creating the book."
       render :new, status: :unprocessable_entity

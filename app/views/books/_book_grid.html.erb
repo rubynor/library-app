@@ -1,5 +1,6 @@
-<div id="books-container" class="pb-10" data-controller="book-search">
-  <div class="grid grid-cols-6 gap-6">
+<div class="pb-10" data-controller="book-search">
+  <div class="grid grid-cols-6 gap-6" id="books-container">
+    <%= turbo_stream_from 'books', class: "hidden" %>
     <%= render partial: "book", collection: books %>
   </div>
 </div>

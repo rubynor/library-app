@@ -13,7 +13,7 @@ class Book < ApplicationRecord
 
   has_many :book_categories, dependent: :destroy
   has_many :categories, through: :book_categories
-
+  after_create_commit -> { broadcast_prepend_to "books", partial: "books/book", target: "books-container" }
   
   def pdf_available?
     pdf_file.attached?

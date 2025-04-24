@@ -5,6 +5,8 @@
       <p class="text-gray-200">Fill out the details of the book below.</p>
     </div>
 
-    <%= render 'form', book: @book, categories: @categories %>
+    <%= turbo_frame_tag "new_book" do %>
+      <%= render 'form', book: @book, categories: @categories %>
+    <% end %>
   </div>
 </div>
