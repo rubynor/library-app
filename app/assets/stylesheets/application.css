@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+ul.menu {
+    transition: 300ms;
+}
