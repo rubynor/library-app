@@ -56,6 +56,30 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
+  def extract_pdf_metadata
+    return render json: { error: "No file provided" }, status: :bad_request unless params[:pdf_file]
+  
+    pdf_file = params[:pdf_file]
+    
+    begin
+      reader = PDF::Reader.new(pdf_file.tempfile)
+      
+      metadata = {
+        title: reader.info[:Title],
+        author: reader.info[:Author],
+        pages: reader.page_count
+      }
+      
+      render json: { success: true, metadata: metadata }
+    rescue => e
+      Rails.logger.error("PDF extraction error: #{e.message}")
+      puts "PDF EXTRACTION ERROR: #{e.message}"
+      puts e.backtrace.join("\n")
+      render json: { error: "Could not extract PDF metadata" }, status: :unprocessable_entity
+    end
+  end
+  
+
   def create
     @book = current_user.books.build(book_params)
     

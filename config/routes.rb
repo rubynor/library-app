@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   
   root 'books#index'
   get "books/:id/all_reviews", to: "books#all_reviews"
+  post 'books/extract_pdf_metadata', to: 'books#extract_pdf_metadata'
 
   resources :books do
     resource :bookmarks, only: [:create, :destroy]

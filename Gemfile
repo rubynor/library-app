@@ -27,6 +27,8 @@ gem 'tailwindcss-rails'
 
 gem 'dotenv-rails'
 
+gem 'pdf-reader'
+
 gem 'sendgrid-ruby'
 
 group :development do
