@@ -10,6 +10,16 @@ export default class extends Controller {
   
   connect() {
     this.resetDrawer();
+    this.setupBookmarkButtonListeners();
+  }
+
+  setupBookmarkButtonListeners() {
+    document.addEventListener('click', (event) => {
+      const bookmarkButton = event.target.closest('[data-bookmark-button]');
+      if (bookmarkButton) {
+        event.stopPropagation();
+      }
+    }, true);
   }
 
   resetDrawer() {
