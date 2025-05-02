@@ -62,45 +62,32 @@ class BooksController < ApplicationController
     pdf_file = params[:pdf_file]
     
     begin
-      # Create a temporary file if needed
-      temp_file = pdf_file.tempfile
-      
-      # Make sure PDF::Reader is required
-      require 'pdf-reader'
-      
-      reader = PDF::Reader.new(temp_file.path)
-      
-      # Initialize empty values
-      title = nil
-      author = nil
-      pages = 0
-      
-      # Extract metadata safely
-      if reader.info
-        title = reader.info[:Title] if reader.info[:Title]
-        author = reader.info[:Author] if reader.info[:Author]
-      end
-      
-      # Always get page count
-      pages = reader.page_count
+      reader = PDF::Reader.new(pdf_file.tempfile)
       
       metadata = {
-        title: title,
-        author: author,
-        pages: pages
+        title: reader.info[:Title],
+        author: reader.info[:Author],
+        pages: reader.page_count
       }
       
-      # Log successful extraction
-      Rails.logger.info("PDF metadata extracted successfully: #{metadata}")
+      puts "==== PDF METADATA ====="
+      puts "Filename: #{pdf_file.original_filename}"
+      puts "Title: #{metadata[:title]}"
+      puts "Author: #{metadata[:author]}"
+      puts "Pages: #{metadata[:pages]}"
+      puts "All metadata: #{reader.info.inspect}"
+      puts "======================="
       
       render json: { success: true, metadata: metadata }
     rescue => e
       Rails.logger.error("PDF extraction error: #{e.message}")
-      Rails.logger.error(e.backtrace.join("\n"))
-      render json: { error: "Could not extract PDF metadata: #{e.message}" }, status: :unprocessable_entity
+      puts "PDF EXTRACTION ERROR: #{e.message}"
+      puts e.backtrace.join("\n")
+      render json: { error: "Could not extract PDF metadata" }, status: :unprocessable_entity
     end
   end
   
+
   def create
     @book = current_user.books.build(book_params)
     
@@ -160,6 +147,7 @@ class BooksController < ApplicationController
     end
   end  
   
+
   def apply_sorting
     sort_column = params[:sort_by].in?(%w[title date_added]) ? params[:sort_by] : "date_added"
     sort_order = params[:sort_order] == "asc" ? :asc : :desc
