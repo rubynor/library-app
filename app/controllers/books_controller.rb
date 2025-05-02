@@ -1,3 +1,5 @@
+require 'pdf-reader'
+
 class BooksController < ApplicationController
   before_action :authenticate_user!, except: [:details]
 
