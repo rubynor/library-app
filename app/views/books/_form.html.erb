@@ -1,13 +1,13 @@
 <%= csrf_meta_tags %>
 
 <%= form_with(model: book, local: false, html: { multipart: true }, data: { turbo: true }) do |form| %>
-  <div class="space-y-6">
+  <div class="space-y-6" data-controller="pdf-metadata">
     <div class="flex gap-2">
       <div class="field input w-full">
-        <%= form.text_field :title, class: "grow w-full", placeholder: "Book Title" %>
+        <%= form.text_field :title, class: "grow w-full", placeholder: "Book Title", data: { "pdf-metadata-target": "title" } %>
       </div>
       <div class="field input w-full">
-        <%= form.text_field :author, class: "grow w-full", placeholder: "Author Name" %>
+        <%= form.text_field :author, class: "grow w-full", placeholder: "Author Name", data: { "pdf-metadata-target": "author" } %>
       </div>
     </div>
 
@@ -18,11 +18,17 @@
 
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Book PDF</legend>
-      <%= form.file_field :pdf_file, accept: 'application/pdf', class: "file-input file-input-bordered w-full" %>
+      <%= form.file_field :pdf_file,
+          accept: 'application/pdf',
+          class: "file-input file-input-bordered w-full",
+          data: {
+            "pdf-metadata-target": "fileInput",
+            action: "change->pdf-metadata#extractMetadata"
+          } %>
     </fieldset>
 
     <div class="field input w-full">
-      <%= form.number_field :pages, class: "grow w-full", placeholder: "Number of Pages" %>
+      <%= form.number_field :pages, class: "grow w-full", placeholder: "Number of Pages", data: { "pdf-metadata-target": "pages" } %>
     </div>
 
     <%= form.text_area :description, class: "textarea w-full", placeholder: "Description" %>
