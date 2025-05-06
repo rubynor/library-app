@@ -16,9 +16,6 @@
                     <div class="h-2/4">
                     <div class="flex">
                         <h3 class="font-semibold text-lg md:text-xl w-7/8"><%= book.title %></h3>
-                        <%= turbo_frame_tag "book_#{book.id}_bookmark" do %>
-                            <%= render 'bookmarks/bookmark_button', book: book, bookmarked: current_user.bookmarks.exists?(book: book) %>
-                        <% end %>
                     </div>
                     <div class="w-7/8 flex justify-center items-center space-x-2 text-sm">
                         <span>
