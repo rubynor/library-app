@@ -2,16 +2,16 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { application } from "controllers/application"
 
-import BookReviewController from "./book_review_controller"
+import BookReviewController from "controllers/book_review_controller"
 application.register("book-review", BookReviewController)
 
-import BookSearchController from "./book_search_controller"
+import BookSearchController from "controllers/book_search_controller"
 application.register("book-search", BookSearchController)
 
-import HelloController from "./hello_controller"
+import HelloController from "controllers/hello_controller"
 application.register("hello", HelloController)
 
-import PdfMetadataController from "./pdf_metadata_controller"
+import PdfMetadataController from "controllers/pdf_metadata_controller"
 application.register("pdf-metadata", PdfMetadataController)
