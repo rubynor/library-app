@@ -22,7 +22,8 @@ class WishesController < ApplicationController
   # POST /wishes or /wishes.json
   def create
     @wish = Wish.new(wish_params)
-
+    @wish.user = current_user  # Assign the currently logged-in user
+  
     respond_to do |format|
       if @wish.save
         format.html { redirect_to @wish, notice: "Wish was successfully created." }
@@ -33,6 +34,7 @@ class WishesController < ApplicationController
       end
     end
   end
+  
 
   # PATCH/PUT /wishes/1 or /wishes/1.json
   def update
@@ -65,6 +67,6 @@ class WishesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wish_params
-      params.require(:wish).permit(:title, :author, :user_id)
-    end
+      params.require(:wish).permit(:title, :author, :cover_image)
+    end    
 end
