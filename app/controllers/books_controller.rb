@@ -92,10 +92,10 @@ class BooksController < ApplicationController
 
   def create
     @book = current_user.books.build(book_params)
-    
+  
     if @book.save
       @book.category_ids = params[:book][:category_ids] if params[:book][:category_ids].present?
-      
+  
       respond_to do |format|
         format.html { redirect_to books_path, notice: "Book was successfully created." }
         format.turbo_stream { 
@@ -107,6 +107,7 @@ class BooksController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+ 
 
   def download
     return render_not_found("Book") unless @book
