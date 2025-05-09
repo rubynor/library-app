@@ -11,9 +11,9 @@ class User < ApplicationRecord
 
   validate :email_domain_check
   after_create :log_confirmation_details
-  
+
   private
-  
+
   def log_confirmation_details
     Rails.logger.debug "User created with email: #{self.email}"
     Rails.logger.debug "Confirmation token: #{self.confirmation_token}"
@@ -21,9 +21,10 @@ class User < ApplicationRecord
   end
 
   def email_domain_check
-    allowed_domain = "rubynor.com"
-    unless email.ends_with?("@#{allowed_domain}")
-      errors.add(:email, "must be a rubynor.com address")
+    allowed_domains = ["rubynor.com", "fasttravel.com", "kraftanmelding.no", "kaiasolutions.no"]
+    domain = email.split("@").last
+    unless allowed_domains.include?(domain)
+      errors.add(:email, "must be from one of the following domains: #{allowed_domains.join(', ')}")
     end
   end
 end

@@ -2,6 +2,17 @@
 
 <%= form_with(model: book, local: false, html: { multipart: true }, data: { turbo: true }) do |form| %>
   <div class="space-y-6" data-controller="pdf-metadata">
+    <% if book.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+        <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+        <ul class="list-disc ml-6">
+          <% book.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <div class="flex gap-2">
       <div class="field input w-full">
         <%= form.text_field :title, class: "grow w-full", placeholder: "Book Title", data: { "pdf-metadata-target": "title" } %>
