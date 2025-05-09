@@ -26,7 +26,7 @@ class WishesController < ApplicationController
   
     respond_to do |format|
       if @wish.save
-        format.html { redirect_to @wish, notice: "Wish was successfully created." }
+        format.html { redirect_to wishes_path, notice: "Wish was successfully created." }
         format.json { render :show, status: :created, location: @wish }
       else
         format.html { render :new, status: :unprocessable_entity }
