@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :wishes
   devise_for :users, controllers: {
     confirmations: 'devise/confirmations'
   }

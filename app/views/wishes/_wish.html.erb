@@ -1,0 +1,18 @@
+<%= turbo_frame_tag dom_id(wish), class: "card shadow-xl relative space-y-3" do %>
+  <div class="card bg-base-100 overflow-hidden">
+    <div class="w-full">
+      <figure>
+        <% if wish.cover_image.attached? %>
+            <%= image_tag rails_blob_path(wish.cover_image, disposition: "attachment") %>
+        <% else %>
+            <p>No cover image available</p>
+        <% end %>
+      </figure>     
+
+    </div>
+    <div class="card-body w-full p-4">
+      <h2 class="font-bold text-xl"><%= wish.title %></h2>
+      <p>Suggested by <strong> <%= wish.user.first_name %></strong></p>
+    </div>
+  </div>
+<% end %>

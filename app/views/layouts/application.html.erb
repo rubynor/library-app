@@ -10,7 +10,6 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body data-controller="book-review">
 
 
@@ -18,5 +17,6 @@
       <%= render 'layouts/flash' %>
       <%= yield %>
     </main>
+    <div id="turbo_redirect"></div>
   </body>
 </html>

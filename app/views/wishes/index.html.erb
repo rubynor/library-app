@@ -1,0 +1,18 @@
+<% content_for :title, "Wishes" %>
+<%= render 'layouts/drawer' do %>
+  <div class="px-12">
+    <%= render "layouts/wishlist_navbar" %>
+
+    <div id="wishes" class="space-x-5 grid grid-cols-6 gap-6">
+      <% if @wishes.any? %>
+        <% @wishes.each do |wish| %>
+          <div class="col-span-6 md:col-span-3 lg:col-span-1 sm:flex-row justify-between items-center pb-5 sm:pb-0 w-full">
+            <%= render wish %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-center my-10">No wishes found.</p>
+      <% end %>
+    </div>
+  </div>
+<% end %>

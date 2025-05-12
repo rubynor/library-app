@@ -1,5 +1,5 @@
 <%= turbo_stream.prepend "books-container" do %>
-  <%= render partial: "book", locals: { book: @book } %>
+  <%= turbo_stream.append "books", partial: "books/book", locals: { book: @book } %>
 <% end %>
 
 <%= turbo_stream.update "flash" do %>

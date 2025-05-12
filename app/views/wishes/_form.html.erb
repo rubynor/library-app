@@ -1,0 +1,36 @@
+<%= form_with(model: wish, class: "contents", local: true, html: { multipart: true }) do |form| %>
+  <div class="space-y-6">
+    <% if wish.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+        <h2><%= pluralize(wish.errors.count, "error") %> prohibited this wish from being saved:</h2>
+
+        <ul class="list-disc ml-6">
+          <% wish.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="flex gap-2">
+      <div class="field input w-full">
+        <%= form.text_field :title, placeholder: "Title", class: "grow w-full" %>
+      </div>
+
+      <div class="field input w-full">
+        <%= form.text_field :author, placeholder: "Author", class: "grow w-full" %>
+      </div>
+    </div>
+
+
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Cover image</legend>
+      <%= form.file_field :cover_image, class: "file-input file-input-bordered w-full", accept: "image/*" %>
+    </fieldset>
+
+    <div class="w-full actions text-center space-y-5">
+      <%= form.submit class: "btn w-full bg-blue-500 text-white rounded-xl" %>
+    </div>
+    
+  </div>
+<% end %>

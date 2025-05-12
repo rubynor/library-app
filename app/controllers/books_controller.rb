@@ -97,10 +97,14 @@ class BooksController < ApplicationController
       @book.category_ids = params[:book][:category_ids] if params[:book][:category_ids].present?
   
       respond_to do |format|
-        format.html { redirect_to books_path, notice: "Book was successfully created." }
-        format.turbo_stream { 
-          flash.now[:notice] = "Book was successfully created."
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace(
+            "turbo_redirect",
+            partial: "shared/turbo_redirect",
+            locals: { redirect_path: books_path }
+          )
         }
+        format.html { redirect_to books_path, notice: "Book was successfully created." }
       end
     else
       flash.now[:alert] = "There was an error creating the book."

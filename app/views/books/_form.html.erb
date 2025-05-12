@@ -1,6 +1,6 @@
 <%= csrf_meta_tags %>
 
-<%= form_with(model: book, local: false, html: { multipart: true }, data: { turbo: true }) do |form| %>
+<%= form_with(model: book, html: { multipart: true }, data: { turbo: true }) do |form| %>
   <div class="space-y-6" data-controller="pdf-metadata">
     <% if book.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
