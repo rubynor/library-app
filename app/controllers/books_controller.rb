@@ -8,6 +8,7 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.includes(:user, :reviews, :categories)
+    set_reviewers
     apply_search_filters
     apply_sorting
   end
@@ -152,7 +153,16 @@ class BooksController < ApplicationController
         @books = @books.joins(:categories).where(categories: { id: category_ids }).distinct
       end
     end
-  end  
+
+    if params[:reviewer_id].present?
+      reviewer_id = params[:reviewer_id]
+      @books = @books.joins(:reviews).where(reviews: { user_id: reviewer_id }).distinct
+    end
+  end
+  
+  def set_reviewers
+    @reviewers = User.joins(:reviews).distinct.select(:id, :first_name, :last_name)
+  end
   
 
   def apply_sorting

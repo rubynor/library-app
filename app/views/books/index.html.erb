@@ -1,27 +1,45 @@
 <%= render 'layouts/drawer' do %>
-  <div data-controller="book-review">
-    <div class="drawer drawer-end">
-      <input id="review-drawer" type="checkbox" class="drawer-toggle">
-      <div class="drawer-content px-6 md:px-12">
-        <%= render "layouts/navbar" %>
-        <div class="space-y-4">
-          <h1 class="md:text-3xl md:font-bold font-semibold text-xl">Books</h1>
-          <div class="flex">
+ <div data-controller="book-review">
+  <div class="drawer drawer-end">
+    <input id="review-drawer" type="checkbox" class="drawer-toggle">
+    <div class="drawer-content px-6 md:px-12">
+      <%= render "layouts/navbar" %>
+      <div class="space-y-4">
+        <h1 class="md:text-3xl md:font-bold font-semibold text-xl">Books</h1>
+        <div class="flex">
+          <div class="flex flex-wrap gap-2 w-full lg:w-8/12" data-controller="book-search">
             <%= render "category_filters" %>
-            <div class="hidden lg:flex w-2/8 justify-end">
+          </div>
+          
+          <div class="hidden md:grid 2xl:flex justify-end w-4/12">
+            <div class="lg:w-1/2 flex justify-end">
+              <%= render "reviewer_filter" %>
+            </div>
+            
+            <div class="lg:w-1/2 flex justify-end">
               <div data-controller="book-search" class="ml-auto">
                 <%= render "select_sort" %>
               </div>
             </div>
           </div>
         </div>
-        <div class="divider"></div>
-        <h2 class="text-xl mb-6 font-semibold">
-          <%= params[:query].present? ? 'Search Results' : 'Recently added' %>
-        </h2>
-        <%= render "book_grid", books: @books %>
       </div>
-      <%= render "drawer_side" %>
+      <div class="divider"></div>
+      <h2 class="text-xl mb-6 font-semibold">
+        <% if params[:reviewer_id].present? %>
+          <% reviewer = User.find_by(id: params[:reviewer_id]) %>
+          <% if reviewer %>
+            Books reviewed by <%= reviewer.first_name %> <%= reviewer.last_name %>
+          <% else %>
+            <%= params[:query].present? ? 'Search Results' : 'Recently added' %>
+          <% end %>
+        <% else %>
+          <%= params[:query].present? ? 'Search Results' : 'Recently added' %>
+        <% end %>
+      </h2>
+      <%= render "book_grid", books: @books %>
     </div>
+    <%= render "drawer_side" %>
   </div>
+ </div>
 <% end %>
