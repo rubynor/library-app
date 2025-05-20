@@ -12,11 +12,14 @@
           </div>
 
 
-          <div class="hidden md:grid 2xl:flex justify-end w-4/12">
+          <div class="hidden lg:flex 2xl:flex justify-end w-4/12">
+            <div class="lg:w-1/2">
+              <%= render "select_sort" %>
+            </div>
 
             <div class="lg:w-1/2 flex justify-end">
               <div class="dropdown dropdown-bottom dropdown-end">
-                <div tabindex="0" role="button" class="btn bg-transparent m-1 w-fit md:w-32 flex justify-start">
+                <div tabindex="0" role="button" class="btn bg-transparent w-fit md:w-32 flex justify-start">
                   <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
                     <span class="font-semibold">Filter</span>
                   </div>
@@ -27,10 +30,6 @@
                 <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 shadow-sm p-0 pb-6 w-72 font-semibold">
                   <li class="w-full flex justify-end">
                     <%= render "reviewer_filter" %>
-                  </li>
-
-                  <li class="w-full flex justify-end" data-controller="book-search">
-                    <%= render "select_sort" %>
                   </li>
 
                   <li class="w-full flex justify-end">

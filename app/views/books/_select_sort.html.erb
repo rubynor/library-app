@@ -1,63 +1,62 @@
-<div class="dropdown dropdown-bottom dropdown-end">
+<%= form_with url: books_path, method: :get, local: true, class: "w-full" do %>
+  <div class="dropdown dropdown-bottom dropdown-end w-full">
     <div tabindex="0" role="button" class="btn bg-transparent w-full flex justify-start">
-        <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
-            <span class="text-[#718096]">Sort By:</span>
-            <span class="font-semibold">
-                <%= params[:sort_by] == 'title' ? 'Title' : params[:sort_by] == 'date_added' ? 'Date Added' : 'None' %>
-            </span>
-
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
-            <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
-        </svg>
+      <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
+        <span class="text-[#718096]">Sort By:</span>
+        <span class="font-semibold">
+          <%= params[:sort_by] == 'title' ? 'Title' : params[:sort_by] == 'date_added' ? 'Date Added' : 'None' %>
+        </span>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+      </svg>
     </div>
-    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 shadow-sm p-0 font-semibold">
-        <li class="text-[#9CA3AF] pl-4 py-3">
-            Attributes
-        </li>
-        <li>
-            <label class="flex items-center gap-2">
-                <input type="radio" name="sort_by" value="title"
-                class="radio" data-book-search-target="sort"
-                <%= params[:sort_by] == 'title' ? 'checked' : '' %>>
-                Title
-            </label>
-        </li>
-        <li>
-            <label class="flex items-center gap-2">
-                <input type="radio" name="sort_by" value="date_added"
-                class="radio" data-book-search-target="sort"
-                <%= params[:sort_by] == 'date_added' ? 'checked' : '' %>>
-                Date Added
-            </label>
-        </li>
-        <div class="bg-[#F2F2F7] mt-12">
-            <div class="flex">
-                <div class="py-4 ml-4 w-1/2 flex items-center justify-center space-x-3 text-gray-500 hover:text-orange-100">
-                    <span class="text-xs">
-                        <label class="flex items-center gap-2 peer-checked:text-orange-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
-                            </svg>
-                            <input type="radio" name="sort_order" value="asc" class="peer hidden" data-book-search-target="order" <%= params[:sort_order] == 'asc' ? 'checked' : '' %>>
-                            Ascending
-                        </label>
-                    </span>
-                </div>
-                <div class="divider divider-horizontal"></div>
-                <div class="px-3 py-4 mr-4 w-1/2 flex items-center justify-center space-x-3 text-gray-500 hover:text-orange-100">
-                    <span class="text-xs">
-                        <label class="flex items-center gap-2 peer-checked:text-orange-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                            </svg>
-                            <input type="radio" name="sort_order" value="desc" class="peer hidden" data-book-search-target="order" <%= params[:sort_order] == 'desc' ? 'checked' : '' %>>
-                            Descending
-                        </label>
-                    </span>
-                </div>
-            </div>
-        </div>
 
+    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 shadow-sm p-0 font-semibold">
+      <li class="text-[#9CA3AF] pl-4 py-3">Attributes</li>
+
+      <li>
+        <label class="flex items-center gap-2">
+          <%= radio_button_tag :sort_by, "title", params[:sort_by] == "title", onchange: "this.form.submit()", class: "radio" %>
+          Title
+        </label>
+      </li>
+      <li>
+        <label class="flex items-center gap-2">
+          <%= radio_button_tag :sort_by, "date_added", params[:sort_by] == "date_added", onchange: "this.form.submit()", class: "radio" %>
+          Date Added
+        </label>
+      </li>
+
+      <div class="bg-[#F2F2F7] mt-12">
+        <div class="flex">
+          <div class="py-4 ml-4 w-1/2 flex items-center justify-center space-x-3 text-gray-500 hover:text-orange-100">
+            <span class="text-xs">
+              <label class="flex items-center gap-2 peer-checked:text-orange-100">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                </svg>
+                <%= radio_button_tag :sort_order, "asc", params[:sort_order] == "asc", onchange: "this.form.submit()", class: "peer hidden" %>
+                Ascending
+              </label>
+            </span>
+          </div>
+
+          <div class="divider divider-horizontal"></div>
+
+          <div class="px-3 py-4 mr-4 w-1/2 flex items-center justify-center space-x-3 text-gray-500 hover:text-orange-100">
+            <span class="text-xs">
+              <label class="flex items-center gap-2 peer-checked:text-orange-100">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                </svg>
+                <%= radio_button_tag :sort_order, "desc", params[:sort_order] == "desc", onchange: "this.form.submit()", class: "peer hidden" %>
+                Descending
+              </label>
+            </span>
+          </div>
+        </div>
+      </div>
     </ul>
-</div>
+  </div>
+<% end %>
