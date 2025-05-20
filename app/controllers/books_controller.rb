@@ -7,15 +7,16 @@ class BooksController < ApplicationController
   before_action :set_categories, only: [:new, :create]
 
   def index
-    @books = Book.includes(:user, :reviews, :categories)
+    @books = Book.includes(:user, :reviews, :categories, :bookmarks)
     set_reviewers
+    set_bookmarkers
     apply_search_filters
     apply_sorting
   end
 
   def all_reviews
     book = Book.includes(reviews: :user).find_by(id: params[:id])
-    
+
     if book
       reviews = book.reviews.map do |review|
         {
@@ -24,7 +25,7 @@ class BooksController < ApplicationController
           rating: review.rating
         }
       end
-      
+
       render json: { reviews: reviews }
     else
       render json: { error: "Book not found" }, status: :not_found
@@ -34,14 +35,14 @@ class BooksController < ApplicationController
   def user_review
     return render_unauthorized unless current_user
     return render_not_found("Book") unless @book
-    
+
     review = current_user.reviews.find_by(book_id: @book.id)
     render json: { review: review ? { rating: review.rating, content: review.content } : nil }
   end
 
   def details
     return render_not_found("Book") unless @book
-    
+
     render json: {
       id: @book.id,
       title: @book.title,
@@ -61,26 +62,18 @@ class BooksController < ApplicationController
 
   def extract_pdf_metadata
     return render json: { error: "No file provided" }, status: :bad_request unless params[:pdf_file]
-  
+
     pdf_file = params[:pdf_file]
-    
+
     begin
       reader = PDF::Reader.new(pdf_file.tempfile)
-      
+
       metadata = {
         title: reader.info[:Title],
         author: reader.info[:Author],
         pages: reader.page_count
       }
-      
-      puts "==== PDF METADATA ====="
-      puts "Filename: #{pdf_file.original_filename}"
-      puts "Title: #{metadata[:title]}"
-      puts "Author: #{metadata[:author]}"
-      puts "Pages: #{metadata[:pages]}"
-      puts "All metadata: #{reader.info.inspect}"
-      puts "======================="
-      
+
       render json: { success: true, metadata: metadata }
     rescue => e
       Rails.logger.error("PDF extraction error: #{e.message}")
@@ -89,14 +82,14 @@ class BooksController < ApplicationController
       render json: { error: "Could not extract PDF metadata" }, status: :unprocessable_entity
     end
   end
-  
+
 
   def create
     @book = current_user.books.build(book_params)
-  
+
     if @book.save
       @book.category_ids = params[:book][:category_ids] if params[:book][:category_ids].present?
-  
+
       respond_to do |format|
         format.turbo_stream {
           render turbo_stream: turbo_stream.replace(
@@ -112,11 +105,11 @@ class BooksController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
- 
+
 
   def download
     return render_not_found("Book") unless @book
-    
+
     if @book.pdf_file.attached?
       filename = "#{@book.title.parameterize}-#{@book.id}.pdf"
       send_data @book.pdf_file.download,
@@ -144,11 +137,11 @@ class BooksController < ApplicationController
       query = params[:query].downcase
       @books = @books.where("LOWER(title) LIKE ?", "%#{query}%")
     end
-  
+
     if params[:categories].present?
       category_names = Array(params[:categories]).map(&:downcase)
       category_ids = Category.where("LOWER(name) IN (?)", category_names).pluck(:id)
-  
+
       if category_ids.any?
         @books = @books.joins(:categories).where(categories: { id: category_ids }).distinct
       end
@@ -158,12 +151,20 @@ class BooksController < ApplicationController
       reviewer_id = params[:reviewer_id]
       @books = @books.joins(:reviews).where(reviews: { user_id: reviewer_id }).distinct
     end
+
+    if params[:bookmarker_id].present?
+      bookmarker_id = params[:bookmarker_id]
+      @books = @books.joins(:bookmarks).where(bookmarks: { user_id: bookmarker_id }).distinct
+    end
   end
-  
+
   def set_reviewers
     @reviewers = User.joins(:reviews).distinct.select(:id, :first_name, :last_name)
   end
-  
+
+  def set_bookmarkers
+    @bookmarkers = User.joins(:bookmarks).distinct.select(:id, :first_name, :last_name)
+  end
 
   def apply_sorting
     sort_column = params[:sort_by].in?(%w[title date_added]) ? params[:sort_by] : "date_added"

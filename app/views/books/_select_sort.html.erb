@@ -1,5 +1,5 @@
 <div class="dropdown dropdown-bottom dropdown-end">
-    <div tabindex="0" role="button" class="btn bg-transparent m-1 w-fit md:w-60 flex justify-start">
+    <div tabindex="0" role="button" class="btn bg-transparent w-full flex justify-start">
         <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
             <span class="text-[#718096]">Sort By:</span>
             <span class="font-semibold">
@@ -7,8 +7,8 @@
             </span>
 
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
-            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+            <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
         </svg>
     </div>
     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 shadow-sm p-0 font-semibold">
@@ -17,23 +17,23 @@
         </li>
         <li>
             <label class="flex items-center gap-2">
-                <input type="radio" name="sort_by" value="title" 
-                class="radio" data-book-search-target="sort" 
-                <%= params[:sort_by] == 'title' ? 'checked' : '' %>> 
+                <input type="radio" name="sort_by" value="title"
+                class="radio" data-book-search-target="sort"
+                <%= params[:sort_by] == 'title' ? 'checked' : '' %>>
                 Title
             </label>
         </li>
         <li>
             <label class="flex items-center gap-2">
-                <input type="radio" name="sort_by" value="date_added" 
-                class="radio" data-book-search-target="sort" 
-                <%= params[:sort_by] == 'date_added' ? 'checked' : '' %>> 
+                <input type="radio" name="sort_by" value="date_added"
+                class="radio" data-book-search-target="sort"
+                <%= params[:sort_by] == 'date_added' ? 'checked' : '' %>>
                 Date Added
             </label>
         </li>
         <div class="bg-[#F2F2F7] mt-12">
             <div class="flex">
-                <div class="px-3 py-4 ml-4 w-1/2 flex items-center justify-center space-x-3 text-gray-500 hover:text-orange-100">
+                <div class="py-4 ml-4 w-1/2 flex items-center justify-center space-x-3 text-gray-500 hover:text-orange-100">
                     <span class="text-xs">
                         <label class="flex items-center gap-2 peer-checked:text-orange-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">

@@ -1,0 +1,37 @@
+<div class="dropdown dropdown-bottom dropdown-end w-full">
+  <div tabindex="0" role="button" class="btn bg-transparent m-1 w-full flex justify-start">
+    <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
+      <span class="text-[#718096]">Recommended by:</span>
+      <span class="font-semibold">
+        <% if params[:bookmarker_id].present? %>
+          <% user = @bookmarkers.find { |u| u.id.to_s == params[:bookmarker_id].to_s } %>
+          <%= user ? "#{user.first_name}" : "Unknown" %>
+        <% else %>
+          All
+        <% end %>
+      </span>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+      <path d="M2 2v13.5l5.5-3.5 5.5 3.5V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z"/>
+    </svg>
+  </div>
+
+  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 shadow-sm p-0 pb-4 font-semibold w-full min-w-[12rem]">
+    <li class="text-[#9CA3AF] pl-4 py-3">Recommended by</li>
+
+    <li>
+      <a class="px-4 py-2 hover:bg-base-200" href="<%= books_path(request.query_parameters.except(:bookmarker_id)) %>">
+        All
+      </a>
+    </li>
+
+    <% @bookmarkers.each do |user| %>
+      <li>
+        <a class="px-4 py-2 hover:bg-base-200 <%= 'bg-base-200' if params[:bookmarker_id].to_s == user.id.to_s %>"
+           href="<%= books_path(request.query_parameters.merge(bookmarker_id: user.id)) %>">
+          <%= user.first_name %> <%= user.last_name %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</div>

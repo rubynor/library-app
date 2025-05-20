@@ -17,8 +17,8 @@
                         <div class="flex">
                             <h3 class="font-semibold text-lg md:text-xl w-7/8"><%= book.title %></h3>
 
-                            <% if !book.pdf_file.attached? %>
-                                <span class="badge w-32 badge-sm badge-warning">Physical book</span>
+                            <%= turbo_frame_tag "book_#{book.id}_bookmark" do %>
+                                <%= render 'bookmarks/bookmark_button', book: book, bookmarked: current_user.bookmarks.exists?(book: book) %>
                             <% end %>
                         </div>
                         <div class="w-7/8 flex justify-center items-center space-x-2 text-sm">
@@ -40,11 +40,11 @@
                         <% 5.times do |i| %>
                         <input disabled type="radio" name="rating-<%= book.id %>" class="mask mask-star-2 bg-orange-100" <%= 'checked' if (book.reviews.average(:rating) || 0) > i %> aria-label="<%= i + 1 %> star">
                         <% end %>
-                    </div>  
+                    </div>
                         <span class="hidden md:block">(<%= book.reviews.count %> Reviews)</span>
                     </div>
                     <div class="space-x-4 h-1/4 lg:flex hidden items-end">
-                        <label for="review-drawer" 
+                        <label for="review-drawer"
                             class="btn py-6 rounded-xl btn-outline text-blue-500 border-[#E5E5E7] cursor-pointer"
                             data-book-id="<%= book.id %>"
                             data-action="click->book-review#open"
@@ -52,14 +52,21 @@
                             Review
                         </label>
                         <% if book.pdf_file.attached? %>
-                            <%= link_to "Read", download_book_path(book), 
+                            <%= link_to "Read", download_book_path(book),
                                 class: "btn py-6 rounded-xl bg-blue-500 text-white",
                                 method: :get,
                                 data: { action: "click->book-review#stopPropagation" } %>
                         <% else %>
-                            <button class="btn py-6 rounded-xl bg-blue-500 text-white" disabled>
-                            No PDF Available
-                            </button>
+                            <div class="indicator">
+                                <div class="indicator-item indicator-bottom">
+                                    <span class="badge badge-sm badge-warning">Physical book</span>
+                                </div>
+                                <div>
+                                    <button class="btn py-6 rounded-xl bg-blue-500 text-white" disabled>
+                                        No PDF Available
+                                    </button>
+                                </div>
+                            </div>
                         <% end %>
                     </div>
                 </div>
