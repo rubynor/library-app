@@ -1,4 +1,7 @@
 <%= form_with url: books_path, method: :get, local: true, class: "w-full" do %>
+  <% params.except(:sort_by, :sort_order, :controller, :action).each do |key, value| %>
+    <%= hidden_field_tag key, value %>
+  <% end %>
   <div class="dropdown dropdown-bottom dropdown-end w-full">
     <div tabindex="0" role="button" class="btn bg-transparent w-full flex justify-start">
       <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
