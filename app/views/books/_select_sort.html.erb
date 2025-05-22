@@ -35,13 +35,15 @@
         <div class="flex">
           <div class="py-4 ml-4 w-1/2 flex items-center justify-center space-x-3 text-gray-500 hover:text-orange-100">
             <span class="text-xs">
-              <label class="flex items-center gap-2 peer-checked:text-orange-100">
+                <% is_asc = params[:sort_order] == "asc" %>
+                <label class="flex items-center gap-2 text-xs <%= is_asc ? 'text-orange-500' : 'text-gray-500 hover:text-orange-100' %>">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
                 </svg>
-                <%= radio_button_tag :sort_order, "asc", params[:sort_order] == "asc", onchange: "this.form.submit()", class: "peer hidden" %>
+                <%= radio_button_tag :sort_order, "asc", is_asc, onchange: "this.form.submit()", class: "hidden" %>
                 Ascending
-              </label>
+                </label>
+
             </span>
           </div>
 
@@ -49,13 +51,15 @@
 
           <div class="px-3 py-4 mr-4 w-1/2 flex items-center justify-center space-x-3 text-gray-500 hover:text-orange-100">
             <span class="text-xs">
-              <label class="flex items-center gap-2 peer-checked:text-orange-100">
+                <% is_desc = params[:sort_order] == "desc" %>
+                <label class="flex items-center gap-2 text-xs <%= is_desc ? 'text-orange-500' : 'text-gray-500 hover:text-orange-100' %>">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
                 </svg>
-                <%= radio_button_tag :sort_order, "desc", params[:sort_order] == "desc", onchange: "this.form.submit()", class: "peer hidden" %>
+                <%= radio_button_tag :sort_order, "desc", is_desc, onchange: "this.form.submit()", class: "hidden" %>
                 Descending
-              </label>
+                </label>
+
             </span>
           </div>
         </div>

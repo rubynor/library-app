@@ -1,4 +1,4 @@
-<div data-controller="book-search" class="grid w-full space-y-6 border-b-[#f7f4f2] border-b-1 py-6 lg:px-12 mb-12">
+<div data-controller="book-search" class="grid w-full space-y-6 border-b-[#f7f4f2] border-b-1 py-6 lg:px-12 mb-8">
   <div class="navbar">
     <div class="navbar-start">
       <label for="my-drawer" class="drawer-button cursor-pointer lg:hidden">
@@ -9,7 +9,7 @@
 
       <%= form_with url: books_path, method: :get, local: true, class: "grid space-y-4 hidden lg:flex " do |f| %>
         <label class="input bg-[#F4F7FF] border-[#CBD5E0] border-2 hidden lg:flex items-center w-96 h-14">
-          <%= f.text_field :query, value: params[:query], placeholder: "Search books...", class: "grow py-6 w-full text-lg pl-2" %>
+          <%= f.text_field :query, value: params[:query], placeholder: "Search", class: "grow py-6 w-full text-lg pl-2" %>
           <div>
             <div class="flex items-center justify-center">
               <%= button_tag type: 'submit', class: "btn btn-search bg-blue-500 rounded-lg flex items-center gap-2" do %>

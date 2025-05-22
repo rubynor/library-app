@@ -1,18 +1,18 @@
-<%= turbo_frame_tag dom_id(book), class: "card col-span-6 lg:col-span-3 shadow-xl relative lg:cursor-default cursor-pointer" do %>
+<%= turbo_frame_tag dom_id(book), class: "card col-span-6 md:col-span-3 2xl:col-span-2 shadow-xl relative lg:cursor-default cursor-pointer" do %>
     <div
         data-book-id="<%= book.id %>"
         data-action="click->book-review#open"
     >
         <div class="card-body">
             <div class="flex space-x-5">
-                <div class="w-2/7 lg:w-2/8">
+                <div class="w-2/7 lg:w-3/8">
                     <% if book.cover_image.attached? %>
-                        <%= image_tag rails_blob_path(book.cover_image, disposition: "attachment") %>
+                        <%= image_tag rails_blob_path(book.cover_image, disposition: "attachment"), class: "rounded-xl w-full" %>
                     <% else %>
                         <p>No cover image available</p>
                     <% end %>
                 </div>
-                <div class="w-5/7 lg:w-6/8">
+                <div class="w-5/7 lg:w-5/8">
                     <div class="h-2/4">
                         <div class="flex">
                             <h3 class="font-semibold text-lg md:text-xl w-7/8"><%= book.title %></h3>

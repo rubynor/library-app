@@ -4,20 +4,23 @@
     <input id="review-drawer" type="checkbox" class="drawer-toggle">
     <div class="drawer-content px-6 md:px-12">
       <%= render "layouts/navbar" %>
-      <div class="space-y-4">
-        <h1 class="md:text-3xl md:font-bold font-semibold text-xl">Books</h1>
+      <div class="space-y-6">
+        <h1 class="md:text-3xl lg:text-4xl md:font-bold font-semibold text-xl">Books</h1>
         <div class="flex">
           <div class="flex flex-wrap gap-2 w-full lg:w-8/12" data-controller="book-search">
             <%= render "category_filters" %>
           </div>
 
 
-          <div class="hidden lg:flex 2xl:flex justify-end w-4/12">
-            <div class="lg:w-1/2">
-              <%= render "select_sort" %>
+          <div class="hidden lg:flex justify-end w-4/12 gap-6">
+            <div class="w-3/6 flex justify-end">
+              <div class="w-52 max-w-full">
+                <%= render "select_sort" %>
+
+              </div>
             </div>
 
-            <div class="lg:w-1/2 flex justify-end">
+            <div class="w-3/6 flex justify-start">
               <div class="dropdown dropdown-bottom dropdown-end">
                 <div tabindex="0" role="button" class="btn bg-transparent w-fit md:w-32 flex justify-start">
                   <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
@@ -50,10 +53,10 @@
           <% if reviewer %>
             Books reviewed by <%= reviewer.first_name %> <%= reviewer.last_name %>
           <% else %>
-            <%= params[:query].present? ? 'Search Results' : 'Recently added' %>
+            <%= params[:query].present? ? 'Search Results' : 'Featured' %>
           <% end %>
         <% else %>
-          <%= params[:query].present? ? 'Search Results' : 'Recently added' %>
+          <%= params[:query].present? ? 'Search Results' : 'Featured' %>
         <% end %>
       </h2>
       <%= render "book_grid", books: @books %>

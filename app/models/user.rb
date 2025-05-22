@@ -21,7 +21,7 @@ class User < ApplicationRecord
   end
 
   def email_domain_check
-    allowed_domains = ["rubynor.com", "fasttravel.com", "kraftanmelding.no", "kaiasolutions.no"]
+    allowed_domains = ["rubynor.com", "fasttravel.com", "kraftanmelding.no", "kaiasolutions.no", "swiftner.com"]
     domain = email.split("@").last
     unless allowed_domains.include?(domain)
       errors.add(:email, "must be from one of the following domains: #{allowed_domains.join(', ')}")
