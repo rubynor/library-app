@@ -1,4 +1,4 @@
-<%= turbo_frame_tag dom_id(book), class: "card col-span-6 md:col-span-3 2xl:col-span-2 shadow-xl relative lg:cursor-default cursor-pointer" do %>
+<%= turbo_frame_tag dom_id(book), class: "card w-full md:w-1/2 2xl:w-[30rem] shadow-xl relative lg:cursor-default cursor-pointer" do %>
     <div
         data-book-id="<%= book.id %>"
         data-action="click->book-review#open"
@@ -7,7 +7,9 @@
             <div class="flex space-x-5">
                 <div class="w-2/7 lg:w-3/8">
                     <% if book.cover_image.attached? %>
-                        <%= image_tag rails_blob_path(book.cover_image, disposition: "attachment"), class: "rounded-xl w-full" %>
+                        <div class="border-1 border-gray-50 rounded-xl">
+                            <%= image_tag rails_blob_path(book.cover_image, disposition: "attachment"), class: "rounded-xl w-full" %>
+                        </div>
                     <% else %>
                         <p>No cover image available</p>
                     <% end %>
@@ -15,20 +17,26 @@
                 <div class="w-5/7 lg:w-5/8">
                     <div class="h-2/4">
                         <div class="flex">
-                            <h3 class="font-semibold text-lg md:text-xl w-7/8"><%= book.title %></h3>
+                            <div class="w-7/8 grid gap-1">
+                                <h3 class="font-semibold text-md md:text-xl"><%= book.title %></h3>
 
-                            <%= turbo_frame_tag "book_#{book.id}_bookmark" do %>
-                                <%= render 'bookmarks/bookmark_button', book: book, bookmarked: current_user.bookmarks.exists?(book: book) %>
-                            <% end %>
-                        </div>
-                        <div class="w-7/8 flex justify-center items-center space-x-2 text-sm">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383"/>
-                                    <path fill-rule="evenodd" d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z"/>
-                                </svg>
-                            </span>
-                            <p>Added by <strong><%= book.user.first_name %></strong></p>
+                                <div class="flex justify-center items-center space-x-2 text-sm text-gray-700 md:text-md">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383"/>
+                                            <path fill-rule="evenodd" d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z"/>
+                                        </svg>
+                                    </span>
+                                    <p class="text-xs">Added by <span class="font-semibold"><%= book.user.first_name %></span></p>
+                                </div>
+                            </div>
+
+                            <div class="w-1/8 flex justify-left">
+                                <%= turbo_frame_tag "book_#{book.id}_bookmark" do %>
+                                    <%= render 'bookmarks/bookmark_button', book: book, bookmarked: current_user.bookmarks.exists?(book: book) %>
+                                <% end %>
+                            </div>
+
                         </div>
                         <p class="mt-3 text-xs hidden md:block lg:hidden"><%= book.description.truncate(40) %></p>
                         <p class="mt-3 text-xs hidden lg:block xl:hidden"><%= book.description.truncate(80) %></p>
