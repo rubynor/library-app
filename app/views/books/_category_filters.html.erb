@@ -5,7 +5,7 @@
              value="<%= category.name %>"
              data-book-search-target="checkbox"
              <%= "checked" if params[:categories]&.include?(category.name) %> />
-      <span class="btn bg-[#F9F9F9] text-gray-700 shadow-none border-none w-fit peer-checked:bg-orange-500 peer-checked:text-white">
+      <span class="btn bg-[#F9F9F9] text-gray-500 shadow-xl border-none w-fit peer-checked:bg-orange-500 peer-checked:text-white">
         <%= category.name %>
       </span>
     </label>

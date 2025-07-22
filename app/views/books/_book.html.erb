@@ -1,4 +1,5 @@
-<%= turbo_frame_tag dom_id(book), class: "card w-full md:w-1/2 2xl:w-[30rem] shadow-xl relative lg:cursor-default cursor-pointer" do %>
+<%= turbo_frame_tag dom_id(book), class: "card w-full md:w-1/2 2xl:w-[30rem]" do %>
+  <div class="w-11/12 h-full flex items-center justify-between shadow-xl relative lg:cursor-default cursor-pointer rounded-xl">
     <div
         data-book-id="<%= book.id %>"
         data-action="click->book-review#open"
@@ -55,7 +56,7 @@
                     </div>
                     <div class="space-x-4 h-1/4 lg:flex hidden items-end">
                         <label for="review-drawer"
-                            class="btn py-6 rounded-xl btn-outline text-blue-500 border-[#E5E5E7] cursor-pointer"
+                            class="btn py-3 rounded-xl btn-outline text-blue-500 border-[#E5E5E7] cursor-pointer"
                             data-book-id="<%= book.id %>"
                             data-action="click->book-review#open"
                         >
@@ -63,7 +64,7 @@
                         </label>
                         <% if book.pdf_file.attached? %>
                             <%= link_to "Read", download_book_path(book),
-                                class: "btn py-6 rounded-xl bg-blue-500 text-white",
+                                class: "btn py-3 rounded-xl bg-blue-500 text-white",
                                 method: :get,
                                 data: { action: "click->book-review#stopPropagation" } %>
                         <% else %>
@@ -72,7 +73,7 @@
                                     <span class="badge badge-sm badge-warning -z-50">Physical book</span>
                                 </div>
                                 <div>
-                                    <button class="btn py-6 rounded-xl bg-blue-500 text-white" disabled>
+                                    <button class="btn py-3 rounded-xl bg-blue-500 text-white" disabled>
                                         No PDF Available
                                     </button>
                                 </div>
@@ -83,4 +84,5 @@
             </div>
         </div>
     </div>
+  </div>
 <% end %>

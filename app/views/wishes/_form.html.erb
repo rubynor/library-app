@@ -1,4 +1,4 @@
-<%= form_with(model: wish, class: "contents", local: true, html: { multipart: true }) do |form| %>
+<%= form_with(model: wish, class: "contents bg-gray-50", local: true, html: { multipart: true }) do |form| %>
   <div class="space-y-6">
     <% if wish.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
@@ -31,6 +31,6 @@
     <div class="w-full actions text-center space-y-5">
       <%= form.submit class: "btn w-full bg-blue-500 text-white rounded-xl" %>
     </div>
-    
+
   </div>
 <% end %>
