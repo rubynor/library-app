@@ -1,4 +1,4 @@
-<div data-controller="book-search" class="grid w-full space-y-6 py-6 lg:px-4\3">
+<div data-controller="book-search" class="grid w-full space-y-6 pb-3 pt-6 lg:px-4\3">
   <div class="navbar">
     <div class="navbar-start">
       <%= link_to root_path do %>
@@ -34,23 +34,5 @@
       </div>
     </div>
 
-  </div>
-  <div class="lg:hidden flex items-center gap-6">
-      <%= form_with url: books_path, method: :get, local: true, class: "grid space-y-4 flex" do |f| %>
-        <label class="input">
-          <svg class="opacity-50" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </g>
-          </svg>
-          <%= f.text_field :query, value: params[:query], placeholder: "Search books...", class: "grow" %>
-        </label>
-      <% end %>
-
-
-    <div class="ml-auto md:w-56">
-      <%= render "shared/select_sort" %>
-    </div>
   </div>
 </div>

@@ -6,16 +6,18 @@
   <%= hidden_field_tag :sort_order, "desc" unless params[:sort_order].present? %>
 
   <div class="dropdown dropdown-bottom dropdown-end w-full">
-    <div tabindex="0" role="button" class="btn bg-transparent w-full flex justify-start rounded-xl">
-      <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
+    <div tabindex="0" role="button" class="btn bg-transparent w-full flex justify-start rounded-xl h-12">
+      <div class="hidden md:flex items-center justify-start w-11/12 gap-2">
         <span class="text-gray-400">Sort By:</span>
         <span class="font-semibold text-gray-700">
           <%= params[:sort_by] == 'title' ? 'Title' : 'Date Added' %>
         </span>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
-        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
-      </svg>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+          <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+        </svg>
+      </div>
     </div>
 
     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 shadow-sm p-0 font-semibold">

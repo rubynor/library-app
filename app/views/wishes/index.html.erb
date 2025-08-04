@@ -6,7 +6,7 @@
 
   <div id="wishes" class="w-full h-full">
     <% if @wishes.any? %>
-      <div class="flex flex-wrap justify-center">
+      <div class="flex flex-wrap justify-center gap-6">
         <% @wishes.each do |wish| %>
           <%= render wish %>
         <% end %>
