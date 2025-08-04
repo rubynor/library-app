@@ -1,0 +1,14 @@
+<%= form_with url: current_controller == 'books' ? books_path : wishes_path, method: :get, local: true, class: "grid space-y-4 hidden lg:flex " do |f| %>
+  <label class="input bg-white border-gray-150 rounded-2xl border-1 hidden lg:flex h-12 w-full">
+    <%= f.text_field :query, value: params[:query], placeholder: "Search", class: "grow py-6 w-full text-md pl-2" %>
+    <div>
+      <div class="flex items-center justify-center">
+        <%= button_tag type: 'submit', class: 'p-4' do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+  </label>
+<% end %>

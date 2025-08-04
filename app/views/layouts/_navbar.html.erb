@@ -1,7 +1,9 @@
 <div data-controller="book-search" class="grid w-full space-y-6 py-6 lg:px-4\3">
   <div class="navbar">
     <div class="navbar-start">
-      <img class="h-12 md:h-14 group-hover:h-full transition-all duration-300" alt="rubynor logo hvite forenklet" src="<%= asset_path('Rubynor_logo_200x200.png') %>" />
+      <%= link_to root_path do %>
+        <img class="h-12 md:h-14 group-hover:h-full transition-all duration-300" alt="rubynor logo hvite forenklet" src="<%= asset_path('Rubynor_logo_200x200.png') %>" />
+      <% end %>
     </div>
 
     <div class="navbar-end">
@@ -48,7 +50,7 @@
 
 
     <div class="ml-auto md:w-56">
-      <%= render "select_sort" %>
+      <%= render "shared/select_sort" %>
     </div>
   </div>
 </div>

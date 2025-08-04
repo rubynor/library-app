@@ -3,7 +3,9 @@ class WishesController < ApplicationController
 
   # GET /wishes or /wishes.json
   def index
-    @wishes = Wish.all
+    @wishes = Wish.includes(:user)
+    apply_search_filters
+    apply_sorting
   end
 
   # GET /wishes/1 or /wishes/1.json
@@ -23,7 +25,7 @@ class WishesController < ApplicationController
   def create
     @wish = Wish.new(wish_params)
     @wish.user = current_user  # Assign the currently logged-in user
-  
+
     respond_to do |format|
       if @wish.save
         format.html { redirect_to wishes_path, notice: "Wish was successfully created." }
@@ -34,7 +36,6 @@ class WishesController < ApplicationController
       end
     end
   end
-  
 
   # PATCH/PUT /wishes/1 or /wishes/1.json
   def update
@@ -60,13 +61,34 @@ class WishesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_wish
-      @wish = Wish.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def wish_params
-      params.require(:wish).permit(:title, :author, :cover_image)
-    end    
+  # Use callbacks to share common setup or constraints between actions.
+  def set_wish
+    @wish = Wish.find(params[:id])
+  end
+
+  # Apply search filtering for wishes
+  def apply_search_filters
+    if params[:query].present?
+      query = params[:query].downcase
+      @wishes = @wishes.where("LOWER(title) LIKE ? OR LOWER(author) LIKE ?", "%#{query}%", "%#{query}%")
+    end
+  end
+
+  # Apply sorting for wishes
+  def apply_sorting
+    sort_column = params[:sort_by].in?(%w[title date_added]) ? params[:sort_by] : "date_added"
+    sort_order = params[:sort_order] == "asc" ? :asc : :desc
+
+    @wishes = if sort_column == "date_added"
+               @wishes.order(created_at: sort_order)
+             else
+               @wishes.order(title: sort_order)
+             end
+  end
+
+  # Only allow a list of trusted parameters through.
+  def wish_params
+    params.require(:wish).permit(:title, :author, :cover_image)
+  end
 end
