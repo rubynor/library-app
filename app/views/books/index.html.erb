@@ -1,43 +1,63 @@
-<%= render 'layouts/drawer' do %>
  <div data-controller="book-review">
   <div class="drawer drawer-end">
     <input id="review-drawer" type="checkbox" class="drawer-toggle">
     <div class="drawer-content px-6 md:px-12">
       <%= render "layouts/navbar" %>
       <div class="space-y-6">
-        <h1 class="md:text-3xl lg:text-4xl md:font-bold font-semibold text-xl">Books</h1>
         <div class="flex">
-          <div class="flex flex-wrap gap-2 w-full lg:w-8/12" data-controller="book-search">
-            <%= render "category_filters" %>
-          </div>
-
-
-          <div class="hidden lg:flex justify-end w-4/12 gap-6">
-            <div class="w-3/6 flex justify-end">
-              <div class="w-52 max-w-full">
-                <%= render "select_sort" %>
-
+          <div class="w-full lg:w-9/12">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="m-1 flex justify-center items-center align-middle gap-2 mb-5">
+                <h1 class="md:text-3xl lg:text-4xl md:font-bold font-semibold text-xl">Books</h1>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                </svg>
               </div>
+              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                <li>
+                  <details open>
+                    <summary>
+                      <%= link_to books_path, class: "w-full flex items-center justify-center space-x-2 hover:bg-transparent hover:text-white #{(current_page?(books_path) || current_page?(root_path)) ? 'text-black' : 'text-gray-200'}" do %>
+                        Books
+                      <% end %>
+                    </summary>
+                    <ul>
+                      <li><a>+ Add Book</a></li>
+                    </ul>
+                  </details>
+                </li>
+                <li>
+                  <details open>
+                    <summary>
+                      <%= link_to wishes_path, class: "w-full flex items-center justify-center space-x-2 hover:bg-transparent hover:text-white #{current_page?(wishes_path) ? 'text-black' : 'text-gray-200'}" do %>
+                        Wishes
+                      <% end %>
+                    </summary>
+                    <ul>
+                      <li><a>+ Add Wish</a></li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
             </div>
 
-            <div class="w-3/6 flex justify-start">
-              <div class="dropdown dropdown-bottom dropdown-end">
-                <div tabindex="0" role="button" class="btn bg-transparent w-fit md:w-32 flex justify-start">
-                  <div class="hidden md:flex items-center justify-start w-4/5 gap-2">
-                    <span class="font-semibold text-gray-700">Filter</span>
-                  </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
-                      <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z"/>
-                  </svg>
-                </div>
-                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 shadow-sm p-0 pb-6 w-72 font-semibold">
-                  <li class="w-full flex justify-end">
-                    <%= render "reviewer_filter" %>
-                  </li>
-                  <li class="w-full flex justify-end">
-                    <%= render "bookmark_filter" %>
-                  </li>
-                </ul>
+            <div class="flex flex-wrap gap-2" data-controller="book-search">
+              <%= render "category_filters" %>
+            </div>
+
+          </div>
+
+          <div class="hidden lg:grid w-4/12 gap-6 max-w-lg justify-left items-end">
+            <%= render "search_bar" %>
+
+
+            <div class="w-full flex gap-5">
+              <div class="w-4/6 flex justify-end">
+                <%= render "select_sort" %>
+              </div>
+
+              <div class="w-2/6 flex justify-start">
+                <%= render "select_filter" %>
               </div>
             </div>
           </div>
@@ -50,10 +70,10 @@
           <% if reviewer %>
             Books reviewed by <%= reviewer.first_name %> <%= reviewer.last_name %>
           <% else %>
-            <%= params[:query].present? ? 'Search Results' : 'Featured' %>
+            <%= params[:query].present? ? 'Search Results' : '' %>
           <% end %>
         <% else %>
-          <%= params[:query].present? ? 'Search Results' : 'Featured' %>
+          <%= params[:query].present? ? 'Search Results' : '' %>
         <% end %>
       </h2>
       <%= render "book_grid", books: @books %>
@@ -61,4 +81,3 @@
     <%= render "drawer_side" %>
   </div>
  </div>
-<% end %>

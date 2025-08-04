@@ -1,5 +1,5 @@
 <div class="pb-10" data-controller="category">
-  <div class="flex flex-wrap" id="books-container">
+  <div class="flex justify-center flex-wrap" id="books-container">
     <%= turbo_stream_from 'books', class: "hidden" %>
     <%= render partial: "book", collection: books %>
   </div>

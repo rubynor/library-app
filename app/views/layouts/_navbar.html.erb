@@ -1,32 +1,7 @@
-<div data-controller="book-search" class="grid w-full space-y-6 border-b-[#f7f4f2] border-b-1 py-6 lg:px-12 mb-8">
+<div data-controller="book-search" class="grid w-full space-y-6 py-6 lg:px-4\3">
   <div class="navbar">
     <div class="navbar-start">
-      <label for="my-drawer" class="drawer-button cursor-pointer lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-        </svg>
-      </label>
-
-      <%= form_with url: books_path, method: :get, local: true, class: "grid space-y-4 hidden lg:flex " do |f| %>
-        <label class="input bg-[#F4F7FF] border-[#CBD5E0] border-2 hidden lg:flex items-center w-96 h-14">
-          <%= f.text_field :query, value: params[:query], placeholder: "Search", class: "grow py-6 w-full text-lg pl-2" %>
-          <div>
-            <div class="flex items-center justify-center">
-              <%= button_tag type: 'submit', class: "btn btn-search bg-blue-500 rounded-lg flex items-center gap-2" do %>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                </svg>
-              <% end %>
-
-            </div>
-          </div>
-        </label>
-      <% end %>
-
-    </div>
-
-    <div class="navbar-center">
-      <img alt="rubynor logo" src="<%= asset_path('Rubynor_logo_forenklet.png') %>" width="150" class="lg:hidden" />
+      <img class="h-12 md:h-14 group-hover:h-full transition-all duration-300" alt="rubynor logo hvite forenklet" src="<%= asset_path('Rubynor_logo_200x200.png') %>" />
     </div>
 
     <div class="navbar-end">

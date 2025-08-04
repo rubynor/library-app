@@ -1,10 +1,10 @@
-<%= turbo_frame_tag dom_id(book), class: "card w-full md:w-1/2 2xl:w-[30rem]" do %>
+<%= turbo_frame_tag dom_id(book), class: "card w-full md:w-1/2 2xl:w-[38rem]" do %>
   <div class="w-11/12 h-full flex items-center justify-between shadow-xl relative lg:cursor-default cursor-pointer rounded-xl">
     <div
         data-book-id="<%= book.id %>"
         data-action="click->book-review#open"
     >
-        <div class="card-body">
+        <div class="card-body p-4">
             <div class="flex space-x-5">
                 <div class="w-2/7 lg:w-3/8">
                     <% if book.cover_image.attached? %>
@@ -16,10 +16,11 @@
                     <% end %>
                 </div>
                 <div class="w-5/7 lg:w-5/8">
-                    <div class="h-2/4">
+                    <div class="h-9/12 lg:h-7/12">
                         <div class="flex">
                             <div class="w-7/8 grid gap-1">
-                                <h3 class="font-semibold text-md md:text-xl"><%= book.title %></h3>
+                                <h3 class="font-semibold text-md md:text-lg lg:hidden"><%= book.title.truncate(18) %></h3>
+                                <h3 class="font-semibold text-md md:text-lg hidden lg:flex"><%= book.title %></h3>
 
                                 <div class="flex justify-center items-center space-x-2 text-sm text-gray-700 md:text-md">
                                     <span>
@@ -40,21 +41,21 @@
 
                         </div>
                         <p class="mt-3 text-xs hidden md:block lg:hidden"><%= book.description.truncate(40) %></p>
-                        <p class="mt-3 text-xs hidden lg:block xl:hidden"><%= book.description.truncate(80) %></p>
-                        <p class="mt-3 text-xs hidden xl:block"><%= book.description.truncate(110) %></p>
+                        <p class="mt-3 text-xs hidden lg:block xl:hidden"><%= book.description.truncate(100) %></p>
+                        <p class="mt-3 text-xs hidden xl:block"><%= book.description.truncate(200) %></p>
                     </div>
-                    <div class="h-3/4 lg:h-1/4 space-x-2 flex items-center align-center">
+                    <div class="h-2/12 lg:h-2/12 space-x-2 flex items-center align-center">
                         <span class="text-lg md:text-xl font-semibold">
                             <%= (book.reviews.average(:rating) || 0).round(0.5) %>
                         </span>
                     <div class="rating rating-md md:rating-xs">
                         <% 5.times do |i| %>
-                        <input disabled type="radio" name="rating-<%= book.id %>" class="mask mask-star-2 bg-orange-100" <%= 'checked' if (book.reviews.average(:rating) || 0) > i %> aria-label="<%= i + 1 %> star">
+                            <input disabled type="radio" name="rating-<%= book.id %>" class="mask mask-star-2 bg-orange-100" <%= 'checked' if (book.reviews.average(:rating) || 0) > i %> aria-label="<%= i + 1 %> star">
                         <% end %>
                     </div>
                         <span class="hidden md:block">(<%= book.reviews.count %> Reviews)</span>
                     </div>
-                    <div class="space-x-4 h-1/4 lg:flex hidden items-end">
+                    <div class="space-x-4 md:h-3/12 lg:flex hidden items-center">
                         <label for="review-drawer"
                             class="btn py-3 rounded-xl btn-outline text-blue-500 border-[#E5E5E7] cursor-pointer"
                             data-book-id="<%= book.id %>"

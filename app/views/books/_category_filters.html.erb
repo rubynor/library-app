@@ -1,11 +1,13 @@
   <% Category.all.each do |category| %>
     <label class="cursor-pointer">
-      <input type="checkbox"
-             class="hidden peer"
-             value="<%= category.name %>"
-             data-book-search-target="checkbox"
-             <%= "checked" if params[:categories]&.include?(category.name) %> />
-      <span class="btn bg-[#F9F9F9] text-gray-500 shadow-xl border-none w-fit peer-checked:bg-orange-500 peer-checked:text-white">
+      <input
+        type="checkbox"
+        class="hidden peer"
+        value="<%= category.name %>"
+        data-book-search-target="checkbox"
+        <%= "checked" if params[:categories]&.include?(category.name) %>
+      />
+      <span class="btn rounded-xl text-gray-500 border-2 border-gray-50 w-fit peer-checked:bg-orange-500 peer-checked:text-white">
         <%= category.name %>
       </span>
     </label>
