@@ -1,5 +1,7 @@
+<% is_wishes = current_controller == 'wishes' %>
+
 <div class="flex">
-  <div class="w-full lg:w-9/12">
+  <div class="<%= is_wishes ? 'w-7/12' : 'w-full' %> lg:w-9/12">
     <div class="dropdown">
       <div tabindex="0" role="button" class="m-1 flex justify-center items-center align-middle gap-3 mb-5">
         <h1 class="text-3xl lg:text-4xl md:font-bold font-semibold">
@@ -11,32 +13,40 @@
       </div>
       <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
         <li>
-            <summary>
-                <%= link_to books_path, class: "text-lg  font-semibold #{current_controller == 'books' ? 'text-black' : 'text-gray-200'}" do %>
-                    Books
-                <% end %>
-            </summary>
+          <summary>
+            <%= link_to books_path, class: "text-lg font-semibold #{current_controller == 'books' ? 'text-black' : 'text-gray-200'}" do %>
+              Books
+            <% end %>
+          </summary>
         </li>
         <li>
-            <summary>
-              <%= link_to wishes_path, class: "text-lg  font-semibold #{current_controller == 'wishes' ? 'text-black' : 'text-gray-200'}" do %>
-                Wishes
-              <% end %>
-            </summary>
+          <summary>
+            <%= link_to wishes_path, class: "text-lg font-semibold #{current_controller == 'wishes' ? 'text-black' : 'text-gray-200'}" do %>
+              Wishes
+            <% end %>
+          </summary>
         </li>
       </ul>
     </div>
 
     <div class="flex flex-wrap gap-2" data-controller="book-search">
-        <% if current_controller == 'books' %>
-            <%= render "books/category_filters" %>
-        <% else %>
-            <button class="border-2 border-gray-50 text-gray-500 py-3 px-7 rounded-xl font-semibold">
-                <%= link_to new_wish_path do %>+ Add Wish<% end %>
-            </button>
-        <% end %>
+      <% if current_controller == 'books' %>
+        <%= render "books/category_filters" %>
+      <% else %>
+        <button class="<%= is_wishes ? 'hidden lg:flex' : '' %> border-2 border-gray-50 text-gray-500 py-3 px-7 rounded-xl font-semibold">
+          <%= link_to new_wish_path do %>+ Add Wish<% end %>
+        </button>
+      <% end %>
     </div>
   </div>
+
+  <% if is_wishes %>
+    <div class="lg:hidden w-5/12 gap-6 flex justify-end">
+      <button class="border-lg:hidden border-2 border-gray-50 text-gray-500 px-5 bg-transparent btn rounded-xl font-semibold">
+        <%= link_to new_wish_path do %>+ Add Wish<% end %>
+      </button>
+    </div>
+  <% end %>
 
   <div class="hidden lg:grid w-3/12 gap-6 max-w-lg justify-left items-end">
     <%= render "shared/search_bar" %>
@@ -44,7 +54,7 @@
     <div class="w-full flex gap-5">
       <div class="w-2/6 flex justify-start">
         <% if current_controller == 'books' %>
-            <%= render "books/select_filter" %>
+          <%= render "books/select_filter" %>
         <% end %>
       </div>
 
@@ -62,6 +72,5 @@
     <%= render "shared/select_sort" %>
   </div>
 </div>
-
 
 <div class="divider"></div>
